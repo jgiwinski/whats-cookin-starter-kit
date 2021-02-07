@@ -8,7 +8,9 @@ describe('Ingredient', () => {
   })
 
   it('should be an instance of the Ingredient Class', () => {
-    const newIng = new Ingredient ()
+    const newIng = new Ingredient ({
+      "id": 7811
+    })
     expect(newIng).to.be.an.instanceOf(Ingredient)
   })
 
@@ -35,15 +37,15 @@ describe('Ingredient', () => {
 
   it('should take any length of unique id', () => {
     const ing1 = new Ingredient ({
-      "id": 386
+      "id": 368
     })
     const ing2 = new Ingredient ({
       "id": 4489566
     })
     expect(ing1.id).to.deep.equal(368)
-    expect(ing1.id.length).to.deep.equal(3)
+    expect(ing1.id.toString().length).to.deep.equal(3)
     expect(ing2.id).to.deep.equal(4489566)
-    expect(ing2.id.length).to.deep.equal(7)
+    expect(ing2.id.toString().length).to.deep.equal(7)
   })
 
   it('should store the ingredient name', () => {
