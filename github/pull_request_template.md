@@ -1,9 +1,10 @@
-## Pull Request
-<br>
+## Pull Request <br>
+
 ### Description
+
 * Is this a feature or a fix?
-- [ ] Feature?
-- [ ] Fix? 
+- [ ] Feature? <br>
+- [ ] Fix? <br>
 
 * Where should the reviewer start?
 
@@ -14,9 +15,8 @@
 * How should this be tested?
 
 
-<br>
-***
-#### Please review considerations below:<br>
+#### Please review considerations below:
+
 - [ ] Follows Turing Style Guidelines.<br>
 - [ ] Changes generate no new warnings or errors.<br>
 - [ ] No syntax errors.<br>
