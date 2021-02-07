@@ -1,6 +1,23 @@
 class Recipe {
-  constructor () {
+  constructor (rawRec) {
+    this.id = rawRec.id
+    this.image = rawRec.image
+    this.ingredients = rawRec.ingredients
+    this.instructions = rawRec.instructions
+    this.name = rawRec.name
+    this.tags = rawRec.tags
+  }
 
+  ingNames (ingredientsReference) {
+
+  }
+
+  calcCost (ingredientsReference) {
+
+  }
+
+  retInstructions () {
+    return this.instructions
   }
 }
 

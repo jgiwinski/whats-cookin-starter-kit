@@ -161,7 +161,7 @@ describe('Recipe', () => {
   })
 
   describe('ingNames method', () => {
-    it('should be able to return all ingredients by name', () => {
+    it.only('should be able to return all ingredients by name', () => {
       const newRec = new Recipe (iceWater)
       expect(newRec.ingNames(ingIndex)).to.deep.equal(['ice', 'water'])
     })
