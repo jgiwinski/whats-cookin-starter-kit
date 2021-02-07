@@ -16,13 +16,8 @@
 
 <br>
 ***
-#### Please review considerations below:
-- [ ] Follows Turing Style Guidelines.
-- [ ] Changes generate no new warnings or errors.
-- [ ] No syntax errors.
+#### Please review considerations below:<br>
+- [ ] Follows Turing Style Guidelines.<br>
+- [ ] Changes generate no new warnings or errors.<br>
+- [ ] No syntax errors.<br>
 - [ ] I have tested this code.
-
-
-
-
-
