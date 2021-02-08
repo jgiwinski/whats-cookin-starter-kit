@@ -1,12 +1,63 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="Styles.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Whats Cookin</title>
   </head>
   <body>
-    <h1>Whats Cookin</h1>
+    <header class="nav-bar">
+      <div>
+        <h1>What's Cookin?</h1>
+      </div>
+      <div class="nav-btn-order">
+        <!-- <i class="fas fa-angle-down"> -->
+        <button class="nav-btn"></i>Recipes</button>
+        <button class="nav-btn">Favorite Recipes</button>
+        <button class="nav-btn">Grocery List</button>
+      </div>
+    </header>
+    <div class="solid-green"></div>
+    <section class="search-bar">
+      <input type="text" placeholder="Search Recipes" id="search-bar"/>
+      <!-- <i class="fas fa-search"></i> -->
+    </section>
+    <hr />
+    <main>Featured Recipes
+      <section>Recipe One
+        <img />
+      </section>
+      <section>Recipe Two
+        <img />
+      </section>
+      <section>Recipe Three
+        <img />
+      </section>
+    </main>
+    <section>Recipes
+      <article>
+        <div>
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+        </div>
+        <div>
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+        </div>
+      </article>
+    </section>
+    <section>Favorite Recipes
 
+    </section>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
     <script type="text/javascript" src="../data/ingredients.js"></script>
