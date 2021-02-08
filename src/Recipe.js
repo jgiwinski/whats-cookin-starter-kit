@@ -9,17 +9,22 @@ class Recipe {
   }
 
   ingNames (ingredientsReference) {
-    // const byName = []
-    // this.ingredients.forEach(ing => {
-    //   byName.push(ingredientsReference.find(entry => entry.id === ing.id).name)
-    // })
-    return this.ingredients.reduce((acc, ing) => {
-      acc.push(ingredientsReference.find(entry => {entry.id === ing.id}).name)
-    }, [])
+    const byName = []
+    this.ingredients.forEach(ing => {
+      byName.push(ingredientsReference.find(entry => entry.id === ing.id).name)
+    })
+    return byName
   }
 
   calcCost (ingredientsReference) {
-
+    const state = []
+    this.ingredients.forEach(ing => {
+      state.push(
+        (ing.quantity.amount) * (ingredientsReference.find(entry => entry.id === ing.id).costPerUnit)
+      )
+    })
+    return Math.ceil(state
+      .reduce((total, idv) => total + idv))
   }
 
   retInstructions () {
@@ -28,8 +33,3 @@ class Recipe {
 }
 
 module.exports = Recipe;
-
-// It should have methods to:
-// * Determine the names of ingredients needed
-// * Get the cost of its ingredients
-// * Return its directions / instructions

@@ -161,37 +161,26 @@ describe('Recipe', () => {
   })
 
   describe('ingNames method', () => {
-    it.only('should be able to return all ingredients by name', () => {
+    it('should be able to return all ingredients by name', () => {
       const newRec = new Recipe (iceWater)
       expect(newRec.ingNames(ingIndex)).to.deep.equal(['ice', 'water'])
     })
 
     it('should be able to return any ingredients by name', () => {
       const newRec = new Recipe (cereal)
-      expect(newRec.ingNames(ingIndex)).to.deep.equal(['milk',  'cereal'])
+      expect(newRec.ingNames(ingIndex)).to.deep.equal(['milk',  'box cereal'])
     })
   })
 
   describe('calcCost method', () => {
-    // it('should be able to calculate the cost of individual ingredients', () => {
-    //   const newRec = new Recipe (iceWater)
-    //   expect(newRec.calcCost(iceWater.instructions[0])).to.deep.equal()
-    // })
-
-    // it('should be able to calculate the total cost of muliple ingredients', () => {
-    //   const newRec = new Recipe (cereal)
-    //   expect(newRec.calcCost(cereal.ingredients[]))
-    // })
-
     it('should be able to calculate the total cost of the recipe', () => {
       const newRec = new Recipe (iceWater)
-      expect(newRec.calcCost()).to.deep.equal(43)
+      expect(newRec.calcCost(ingIndex)).to.deep.equal(43)
     })
 
     it('should be able to do the same with any recipe', () => {
       const newRec = new Recipe (cereal)
-      expect(newRec.calcCost()).to.deep.equal(2080)
-
+      expect(newRec.calcCost(ingIndex)).to.deep.equal(2080)
     })
   })
 
