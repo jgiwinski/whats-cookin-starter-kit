@@ -9,7 +9,13 @@ class Recipe {
   }
 
   ingNames (ingredientsReference) {
-
+    // const byName = []
+    // this.ingredients.forEach(ing => {
+    //   byName.push(ingredientsReference.find(entry => entry.id === ing.id).name)
+    // })
+    return this.ingredients.reduce((acc, ing) => {
+      acc.push(ingredientsReference.find(entry => {entry.id === ing.id}).name)
+    }, [])
   }
 
   calcCost (ingredientsReference) {
