@@ -1,3 +1,29 @@
+const Recipe = require('../src/Recipe')
+const Ingredient = require('../src/Ingredient')
+
+const ice = new Ingredient ({
+  "id": 00002,
+  "name": "ice",
+  "estimatedCostInCents": 35
+})
+const water = new Ingredient ({
+  "id": 0003,
+  "name": "water",
+  "estimatedCostInCents": 15
+})
+const milk = new Ingredient ({
+  "id": 0365,
+  "name": "milk",
+  "estimatedCostInCents": 212
+})
+const boxCer = new Ingredient ({
+  "id": 1567,
+  "name": "box cereal",
+  "estimatedCostInCents": 138
+})
+
+const ingIndex = [ice, water, milk, boxCer]
+
 const iceWater = {
   "id": 896653,
   "image": "https://ak.picdn.net/shutterstock/videos/3344537/thumb/6.jpg",
@@ -28,6 +54,8 @@ const iceWater = {
     "summer"
   ]
 }
+
+const recIceWater = new Recipe (iceWater)
 
 const cereal = {
   "id": 567724,
@@ -62,7 +90,10 @@ const cereal = {
   ]
 }
 
+const recCereal = new Recipe (cereal)
+
 module.exports = {
-  iceWater,
-  cereal
+  recIceWater,
+  recCereal,
+  ingIndex
 }

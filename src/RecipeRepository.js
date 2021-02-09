@@ -2,6 +2,18 @@ class RecipeRepository {
   constructor (allRecipes) {
     this.recipeIndex = allRecipes
   }
+
+  filterByTag (tag) {
+
+  }
+
+  filterByName (name) {
+
+  }
+
+  filterByIng (ingredient) {
+
+  }
 }
 
 module.exports = RecipeRepository;
