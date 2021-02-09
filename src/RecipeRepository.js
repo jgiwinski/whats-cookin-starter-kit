@@ -1,24 +1,33 @@
 class RecipeRepository {
-  constructor (allRecipes) {
+  constructor (allRecipes, allIngredients) {
     this.recipeIndex = allRecipes
+    this.ingredientIndex = allIngredients
   }
 
   filterByTag (tag) {
-
+    return this.recipeIndex.filter(recipe => {
+      if (recipe.tags.includes(tag)) {
+        return recipe
+      }
+    })
   }
 
   filterByName (name) {
-
+    return this.recipeIndex.filter(recipe => {
+      if (recipe.name === name) {
+        return recipe
+      }
+    })
   }
 
   filterByIng (ingredient) {
-
+    return this.recipeIndex.filter(recipe => {
+      if (recipe.ingNames(this.ingredientIndex)
+        .includes(ingredient)) {
+        return recipe
+      }
+    })
   }
 }
 
 module.exports = RecipeRepository;
-
-// It should have a parameter to take in recipe data.
-// It should have methods to determine:
-//  * A filtered list of recipes based on one or more tags.
-//  * A filtered list of recipes based on its name or ingredients.
