@@ -104,7 +104,7 @@ hr {
   justify-content: space-around;
 }
 
-.featured-recipes {
+.recipe-cards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
