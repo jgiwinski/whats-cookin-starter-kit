@@ -14,20 +14,20 @@
         <h1>What's Cookin?</h1>
       </div>
       <div class="nav-btn-order">
-        <!-- <i class="fas fa-angle-down"> -->
-        <button class="nav-btn"></i>Recipes</button>
-        <button class="nav-btn">Favorite Recipes</button>
-        <button class="nav-btn">Grocery List</button>
+        <button class="nav-btn"><span>Recipes </span></button>
+        <button class="nav-btn"><span>Favorite Recipes </span></button>
+        <button class="nav-btn"><span>Pantry </span></button>
       </div>
     </header>
     <div class="solid-green"></div>
-    <section class="search-bar">
+    <section class="center-content">
       <input type="text" placeholder="Search Recipes" id="search-bar"/>
       <!-- <i class="fas fa-search"></i> -->
     </section>
     <hr />
     <main class="featured-recipes">
-      <section class="main-recipe-display">
+      <section class="main-recipe-display center-column">
+        <i class="fas fa-bookmark"></i>
         <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg"/>
         <h4>Chocolate Chip Cookies</h4>
         <div class="tag-box">
@@ -35,7 +35,7 @@
           <p class="tag">snack</p>
         </div>
       </section>
-      <section class="main-recipe-display">
+      <section class="main-recipe-display center-column">
         <img src="https://spoonacular.com/recipeImages/412309-556x370.jpeg"/>
         <h4>Apple Cider</h4>
         <div class="tag-box">
@@ -43,7 +43,31 @@
           <p class="tag">snack</p>
         </div>
       </section>
-      <section class="main-recipe-display">
+      <section class="main-recipe-display center-column">
+        <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
+        <h4>Banana Pancakes</h4>
+        <div class="tag-box">
+          <p class="tag">breakfast</p>
+          <p class="tag">fruit</p>
+        </div>
+      </section>
+      <section class="main-recipe-display center-column">
+        <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg"/>
+        <h4>Chocolate Chip Cookies</h4>
+        <div class="tag-box">
+          <p class="tag">dessert</p>
+          <p class="tag">snack</p>
+        </div>
+      </section>
+      <section class="main-recipe-display center-column">
+        <img src="https://spoonacular.com/recipeImages/412309-556x370.jpeg"/>
+        <h4>Apple Cider</h4>
+        <div class="tag-box">
+          <p class="tag">drink</p>
+          <p class="tag">snack</p>
+        </div>
+      </section>
+      <section class="main-recipe-display center-column">
         <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
         <h4>Banana Pancakes</h4>
         <div class="tag-box">
@@ -53,8 +77,16 @@
       </section>
     </main>
     <hr />
-    <section>Recipes
-      <article class="recipe-list">
+    <section class="center-column box-outline">
+      <h1>Recipes</h1>
+      <article class="list">
+        <div>
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+          * Recipe Names<br />
+        </div>
         <div>
           * Recipe Names<br />
           * Recipe Names<br />
@@ -78,8 +110,51 @@
         </div>
       </article>
     </section>
-    <section>Favorite Recipes
-
+    <hr />
+    <section class="box-outline center-column">
+      <h1>Pantry</h1>
+      <article class="list">
+        <div>
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+        </div>
+        <div>
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+        </div>
+        <div>
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+        </div>
+        <div>
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+        </div>
+      </article>
     </section>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
