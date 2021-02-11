@@ -89,6 +89,9 @@ hr {
 }
 
 .side-tag-display {
+  /* position: fixed; */
+  /* left: 0; */
+  /* top: 30px; */
   border-style: solid;
   min-width: 15%;
   height: 1000px;
@@ -119,7 +122,7 @@ hr {
   justify-content: start;
 }
 
-.main-recipe-display {
+.recipe-card-display {
   position: relative;
   border-radius: 10px;
   border-style: solid;
@@ -167,6 +170,7 @@ h4 {
 }
 
 /* PANTRY */
+
 /* .pantry-order {
 
 } */
