@@ -6,26 +6,19 @@ class RecipeRepository {
 
   filterByTag (tag) {
     return this.recipeIndex.filter(recipe => {
-      if (recipe.tags.includes(tag)) {
-        return recipe
-      }
+      return recipe.tags.includes(tag)
     })
   }
 
   filterByName (name) {
     return this.recipeIndex.filter(recipe => {
-      if (recipe.name === name) {
-        return recipe
-      }
+      return recipe.name === name ? true : false
     })
   }
 
   filterByIng (ingredient) {
     return this.recipeIndex.filter(recipe => {
-      if (recipe.ingNames(this.ingredientIndex)
-        .includes(ingredient)) {
-        return recipe
-      }
+      return recipe.ingNames(this.ingredientIndex).includes(ingredient)
     })
   }
 }

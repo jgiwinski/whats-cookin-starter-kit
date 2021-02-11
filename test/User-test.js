@@ -1,4 +1,3 @@
-const { use } = require('chai')
 const chai = require('chai')
 const expect = chai.expect
 const User = require('../src/User')
@@ -7,8 +6,7 @@ const {
   simon,
   recIceWater,
   recCereal,
-  recJuice,
-  // ingIndex
+  recJuice
 } = require('./dummy-recipes')
 
 describe('User', () => {
@@ -77,44 +75,44 @@ describe('User', () => {
     ])
   })
 
-  it('should be abble to store favorite recipes', () => {
+  it('should be able to store favorite recipes', () => {
     const newU = new User (daphne)
-    expect(daphne.favoriteRecipes).to.deep.equal([])
+    expect(newU.favoriteRecipes).to.deep.equal([])
   })
 
   it('should start off with no favorite recipes', () => {
     const newU = new User (daphne)
-    expect(daphne.favoriteRecipes.length).to.deep.equal(0)
+    expect(newU.favoriteRecipes.length).to.deep.equal(0)
   })
 
   it('should be able to accurately store a recipe in favorites', () => {
     const newU = new User (daphne)
-    daphne.addToFav(recIceWater)
+    newU.addToFav(recIceWater)
     expect(newU.favoriteRecipes).to.deep.equal([recIceWater])
   })
 
   it('should be able to accurately store any recipe in favorites', () => {
     const newU = new User (daphne)
-    daphne.addToFav(recCereal)
+    newU.addToFav(recCereal)
     expect(newU.favoriteRecipes).to.deep.equal([recCereal])
-    daphne.addToFav(recIceWater)
+    newU.addToFav(recIceWater)
     expect(newU.favoriteRecipes).to.deep.equal([recCereal, recIceWater])
 
     const secU = new User (simon)
-    simon.addToFav(recJuice)
+    secU.addToFav(recJuice)
     expect(secU.favoriteRecipes).to.deep.equal([recJuice])
   })
 
   it('should be able to accurately remove a recipe from favorites', () => {
     const newU = new User (daphne)
-    daphne.addToFav(recIceWater)
-    daphne.addToFav(recCereal)
-    daphne.addToFav(recJuice)
+    newU.addToFav(recIceWater)
+    newU.addToFav(recCereal)
+    newU.addToFav(recJuice)
 
-    daphne.removeFromFav(recCereal)
+    newU.removeFromFav(recCereal)
     expect(newU.favoriteRecipes).to.deep.equal([recIceWater, recJuice])
 
-    daphne.addToFav(recCereal)
+    newU.addToFav(recCereal)
     newU.removeFromFav(recIceWater)
     expect(newU.favoriteRecipes).to.deep.equal([recJuice, recCereal])
 
@@ -134,42 +132,42 @@ describe('User', () => {
 
   it('should be able to add recipes to the to cook list', () => {
     const newU = new User (daphne)
-    daphne.addToCook(recIceWater)
+    newU.addToCook(recIceWater)
     expect(newU.recipesToCook).to.deep.equal([recIceWater])
   })
 
   it('should be able to add any recipe to the to cook list', () => {
     const newU = new User (daphne)
-    daphne.addToCook(recJuice)
+    newU.addToCook(recJuice)
     expect(newU.recipesToCook).to.deep.equal([recJuice])
 
     const secU = new User (simon)
-    simon.addToCook(recCereal)
+    secU.addToCook(recCereal)
     expect(secU.recipesToCook).to.deep.equal([recCereal])
   })
 
 
   it('should be able to filter favorites by tag', () => {
     const newU = new User (daphne)
-    daphne.addToFav(recIceWater)
-    daphne.addToFav(recCereal)
-    daphne.addToFav(recJuice)
-    expect(newU.favoritesByTag('drinks')).to.deep.equal()
+    newU.addToFav(recIceWater)
+    newU.addToFav(recCereal)
+    newU.addToFav(recJuice)
+    expect(newU.favoritesByTag('drinks')).to.deep.equal([recIceWater, recJuice])
   })
 
   it('should be able to filter favorites by name', () => {
     const newU = new User (daphne)
-    daphne.addToFav(recIceWater)
-    daphne.addToFav(recCereal)
-    daphne.addToFav(recJuice)
-    expect(newU.favoritesByName('Cereal'))
+    newU.addToFav(recIceWater)
+    newU.addToFav(recCereal)
+    newU.addToFav(recJuice)
+    expect(newU.favoritesByName('Cereal')).to.deep.equal([recCereal])
   })
 
   it('should be able to filter favorites by ingredients', () => {
     const newU = new User (daphne)
-    daphne.addToFav(recIceWater)
-    daphne.addToFav(recCereal)
-    daphne.addToFav(recJuice)
-    expect(newU.favoritesByIngredients('fresh fruit'))
+    newU.addToFav(recIceWater)
+    newU.addToFav(recCereal)
+    newU.addToFav(recJuice)
+    expect(newU.favoritesByIngredients('fresh fruit')).to.deep.equal([recJuice])
   })
 })
