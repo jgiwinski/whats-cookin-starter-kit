@@ -4,6 +4,7 @@ const RecipeRepository = require('../src/RecipeRepository')
 const {
   recIceWater,
   recCereal,
+  recJuice,
   ingIndex
 } = require('../test/dummy-recipes')
 
@@ -33,32 +34,32 @@ describe('RecipeRepository', () => {
   })
 
   it('should be able to filter recipes by tag', () => {
-    const newRepo = new RecipeRepository ([recIceWater, recCereal], ingIndex)
-    expect(newRepo.filterByTag('drinks')).to.deep.equal([recIceWater])
+    const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
+    expect(newRepo.filterByTag('drinks')).to.deep.equal([recIceWater, recJuice])
   })
 
   it('should be able to filter recipes by any tag', () => {
-    const newRepo = new RecipeRepository ([recIceWater, recCereal], ingIndex)
+    const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
     expect(newRepo.filterByTag('breakfast')).to.deep.equal([recCereal])
   })
 
   it('should be able to filter recipes by name', () => {
-    const newRepo = new RecipeRepository ([recIceWater, recCereal], ingIndex)
+    const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
     expect(newRepo.filterByName('Ice Water')).to.deep.equal([recIceWater])
   })
 
   it('should be able to filter recipes by any name', () => {
-    const newRepo = new RecipeRepository ([recIceWater, recCereal], ingIndex)
+    const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
     expect(newRepo.filterByName('Cereal')).to.deep.equal([recCereal]) 
   })
 
   it('should be able to filter recipes by ingredient', () => {
-    const newRepo = new RecipeRepository ([recIceWater, recCereal], ingIndex)
+    const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
     expect(newRepo.filterByIng('water')).to.deep.equal([recIceWater])
   })
 
   it('should be able to filter recipes by any ingredient', () => {
-    const newRepo = new RecipeRepository ([recIceWater, recCereal], ingIndex)
+    const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
     expect(newRepo.filterByIng('milk')).to.deep.equal([recCereal])
   })
 })

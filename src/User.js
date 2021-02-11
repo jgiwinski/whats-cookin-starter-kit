@@ -1,10 +1,9 @@
-const ingIndex = require('../test/dummy-recipes')
-
 class User {
-  constructor (person) {
+  constructor (person, allIngredients) {
     this.name = person.name
     this.id = person.id
     this.pantry = person.pantry
+    this.ingredientsIndex = allIngredients
     this.favoriteRecipes = []
     this.recipesToCook = []
   }
@@ -40,21 +39,11 @@ class User {
   
   favoritesByIngredients (targetIngredients) {
     return this.favoriteRecipes.filter(recipe => {
-      if (recipe.ingNames(ingIndex).includes(targetIngredients)) {
-        return recipe
-      }
+      return recipe.ingNames(this.ingredientsIndex).includes(targetIngredients)
     })
   }
 }
 
 module.exports = User;
 
-// Create classes and methods that can:
-
-// Allow a user to favorite or unfavorite recipes (add to / remove from the user’s favoriteRecipes)
-
-// Decide to cook a recipe that week (add to my recipesToCook)
-
 // Filter my favoriteRecipes by one or more tags.
-
-// Filter my favoriteRecipes by its name or ingredients.

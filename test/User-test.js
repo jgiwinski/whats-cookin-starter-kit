@@ -6,7 +6,8 @@ const {
   simon,
   recIceWater,
   recCereal,
-  recJuice
+  recJuice,
+  ingIndex
 } = require('./dummy-recipes')
 
 describe('User', () => {
@@ -163,8 +164,8 @@ describe('User', () => {
     expect(newU.favoritesByName('Cereal')).to.deep.equal([recCereal])
   })
 
-  it('should be able to filter favorites by ingredients', () => {
-    const newU = new User (daphne)
+  it.only('should be able to filter favorites by ingredients', () => {
+    const newU = new User (daphne, ingIndex)
     newU.addToFav(recIceWater)
     newU.addToFav(recCereal)
     newU.addToFav(recJuice)
