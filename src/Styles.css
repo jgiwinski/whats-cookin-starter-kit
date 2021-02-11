@@ -1,0 +1,180 @@
+/* GENERAL */
+ * {
+  font-family: 'Montserrat', sans-serif;
+  color: #184713;
+  border-color: #ededed;
+}
+
+body, html {
+  margin: 0;
+}
+
+/* MAIN STRUCTURE FOR PAGE */
+
+/* NAV BAR */
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.nav-btn-order {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-btn {
+  font-size: medium;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  background-color: white;
+  margin-left: 2em;
+}
+
+.nav-btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.nav-btn:hover span {
+  padding-right: 25px;
+  color: #919191
+}
+
+h1 {
+  font-weight: bold;
+  margin: 0;
+}
+
+.solid-green {
+  background-color: #184713;
+  height: 10px;
+  width: 100%;
+}
+
+/* SEARCH BAR */
+.center-content {
+  display: flex;
+  justify-content: center;
+}
+
+#search-bar {
+  border-radius: 10px;
+  outline: none;
+  width: 50%;
+  height: 2em;
+  margin: 2em 2em 0 2em;
+  text-align: center;
+  border-style: solid;
+  font-size: medium;
+  box-shadow: 0 0 .5em #808080;
+}
+
+hr {
+  background-color: #ededed;
+  color: #ededed;
+  height: 5px;
+  width: 95%;
+  border-style: solid;
+  margin: 2em;
+}
+
+/* TAG LIST */
+.tag-list {
+  width: 100%;
+}
+
+.side-tag-display {
+  /* position: fixed; */
+  /* left: 0; */
+  /* top: 30px; */
+  border-style: solid;
+  min-width: 15%;
+  height: 1000px;
+  margin: 2em 0 2em 2em;
+  padding: 1em;
+  box-shadow: 0 0 .75em #808080
+}
+
+/* FEATURED AND FAVORITE RECIPES */
+.main-order-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.recipe-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 2em;
+}
+
+.center-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+
+.recipe-card-display {
+  position: relative;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
+  padding: .75em;
+  height: 25em;
+  width: 25%;
+  margin-bottom: 2em;
+  box-shadow: 0 0 .75em #808080
+}
+
+img {
+  display: block;
+  border-radius: 10px;
+  width: 100%;
+  height: 20em;
+  object-fit: cover;
+  margin-bottom: 1em;
+}
+
+.fa-bookmark {
+  /* color: white; */
+  position: absolute;
+  top: -1%;
+  left: .5em;
+}
+
+h4 {
+  margin: 0 0 7px 0;
+  font-weight: bold;
+}
+
+.tag-box {
+  height: 2em;
+  width: 100%;
+  padding: 2%
+}
+
+.tag {
+  border-style: solid;
+  border-radius: 10px;
+  background-color: #ededed;
+  display: inline;
+  padding: 1%;
+}
+
+/* PANTRY */
+
+/* .pantry-order {
+
+} */
+
+.hidden {
+  display: none;
+}

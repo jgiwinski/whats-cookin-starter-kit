@@ -1,12 +1,174 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" type="text/css" href="Styles.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta charset="UTF-8">
     <title>Whats Cookin</title>
   </head>
   <body>
-    <h1>Whats Cookin</h1>
+    <header class="nav-bar">
+      <div>
+        <h1>What's Cookin?</h1>
+      </div>
+      <div class="nav-btn-order">
+        <button class="nav-btn recipe-btn"><span>Recipes </span></button>
+        <button class="nav-btn fav-recipe-btn"><span>Favorite Recipes </span></button>
+        <button class="nav-btn pantry-btn"><span>Pantry </span></button>
+      </div>
+    </header>
+    <div class="solid-green"></div>
+    <section class="center-content">
+      <!-- <i class="fas fa-search"></i> -->
+      <input type="text" placeholder="Search Recipes" id="search-bar"/>
+    </section>
+    <hr />
+    <main class="main-order-row">
+      <section class="center-column side-tag-display">
+        <h1>Tags</h1>
+        <article class="tag-list">
+          <input type="checkbox" id="item1" />
+          <label for="item1">breakfast</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">lunch</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">dinner</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">dessert</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">drink</label><br />
+        </article>
+      </section>
+      <section class="recipe-cards all-recipes">
+        <section class="recipe-card-display center-column">
+          <i class="far fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg"/>
+          <h4>Chocolate Chip Cookies</h4>
+          <div class="tag-box">
+            <p class="tag">dessert</p>
+            <p class="tag">snack</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="fas fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/412309-556x370.jpeg"/>
+          <h4>Apple Cider</h4>
+          <div class="tag-box">
+            <p class="tag">drink</p>
+            <p class="tag">snack</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="fas fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
+          <h4>Banana Pancakes</h4>
+          <div class="tag-box">
+            <p class="tag">breakfast</p>
+            <p class="tag">fruit</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="far fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/595736-556x370.jpg"/>
+          <h4>Chocolate Chip Cookies</h4>
+          <div class="tag-box">
+            <p class="tag">dessert</p>
+            <p class="tag">snack</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="far fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/412309-556x370.jpeg"/>
+          <h4>Apple Cider</h4>
+          <div class="tag-box">
+            <p class="tag">drink</p>
+            <p class="tag">snack</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="far fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
+          <h4>Banana Pancakes</h4>
+          <div class="tag-box">
+            <p class="tag">breakfast</p>
+            <p class="tag">fruit</p>
+          </div>
+        </section>
+      </section>
+      <section class="recipe-cards fav-recipes-display hidden">
+        <!-- <h4>Favorite Recipes</h4> -->
+        <section class="recipe-card-display center-column">
+          <i class="fas fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
+          <h4>Banana Pancakes</h4>
+          <div class="tag-box">
+            <p class="tag">breakfast</p>
+            <p class="tag">fruit</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="fas fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
+          <h4>Banana Pancakes</h4>
+          <div class="tag-box">
+            <p class="tag">breakfast</p>
+            <p class="tag">fruit</p>
+          </div>
+        </section>
+        <section class="recipe-card-display center-column">
+          <i class="fas fa-bookmark fa-4x"></i>
+          <img src="https://spoonacular.com/recipeImages/741603-556x370.jpeg"/>
+          <h4>Banana Pancakes</h4>
+          <div class="tag-box">
+            <p class="tag">breakfast</p>
+            <p class="tag">fruit</p>
+          </div>
+        </section>
+      </section>
+    </main>
+    <hr />
+    <hr />
+    <!-- <section class="box-outline center-column">
+      <h1>Pantry</h1>
+      <article class="list">
+        <div>
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+          <input type="checkbox" id="item1" />
+          <label for="item1">flour</label><br />
+        </div>
+      </article>
+    </section> -->
+        <div id="modal-1" aria-hidden="true">
 
+          <!-- [2] -->
+          <div tabindex="-1" data-micromodal-close>
+
+            <!-- [3] -->
+            <div role="dialog" aria-modal="true" aria-labelledby="modal-1-title" >
+
+
+              <header>
+              <h2 id="modal-1-title">
+                Modal Title
+              </h2>
+
+              <!-- [4] -->
+              <button aria-label="Close modal" data-micromodal-close></button>
+            </header>
+
+            <div id="modal-1-content">
+              Modal Content
+            </div>
+        </div>
+      </div>
+    </div>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
     <script type="text/javascript" src="../data/ingredients.js"></script>
