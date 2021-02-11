@@ -1,9 +1,9 @@
 class User {
-  constructor (person, allIngredients) {
+  constructor (person, repository) {
     this.name = person.name
     this.id = person.id
     this.pantry = person.pantry
-    this.ingredientsIndex = allIngredients
+    this.repository = repository || {}
     this.favoriteRecipes = []
     this.recipesToCook = []
   }
@@ -21,29 +21,32 @@ class User {
     this.recipesToCook.push(wanted)
   }
 
-  favoritesByTag (targetTag) {
-    return this.favoriteRecipes.filter(recipe => {
-      if (recipe.tags.includes(targetTag)) {
-        return recipe
+  favoritesByTag () {
+    const tagsInput = Object.values(arguments)
+    let tagStack = tagsInput.reduce((ret, tag) => {
+      if (tagsInput.indexOf(tag) === tagsInput.length - 1) {
+        ret += `'${tag}'`
+      } else {
+        ret += `'${tag}' && `
       }
+      return ret
+    }, '')
+    return this.favoriteRecipes.filter(recipe => {
+      return recipe.tags.includes(eval(tagStack))
     })
   }
 
   favoritesByName (targetName) {
     return this.favoriteRecipes.filter(recipe => {
-      if (recipe.name === targetName) {
-        return recipe
-      }
+      return recipe.name === targetName
     })
   }
   
-  favoritesByIngredients (targetIngredients) {
+  favoritesByIngredients (targetIngredient) {
     return this.favoriteRecipes.filter(recipe => {
-      return recipe.ingNames(this.ingredientsIndex).includes(targetIngredients)
+      return recipe.ingNames(this.repository.ingredientIndex).includes(targetIngredient)
     })
   }
 }
 
 module.exports = User;
-
-// Filter my favoriteRecipes by one or more tags.

@@ -132,13 +132,15 @@ const recJuice = new Recipe ({
   "tags": [
     "drinks",
     "summer",
+    "breakfast",
+    "5 minute",
     "fruity"
   ]
 })
 
 const dummyRecipes = [recIceWater, recCereal, recJuice]
 
-const dummyRepo = new RecipeRepository (ingIndex, dummyRecipes)
+const dummyRepo = new RecipeRepository (dummyRecipes, ingIndex)
 
 const daphne = {
   "name": "Daphne Bridgerton",

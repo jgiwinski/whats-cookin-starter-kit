@@ -7,7 +7,7 @@ const {
   recIceWater,
   recCereal,
   recJuice,
-  ingIndex
+  dummyRepo
 } = require('./dummy-recipes')
 
 describe('User', () => {
@@ -156,16 +156,35 @@ describe('User', () => {
     expect(newU.favoritesByTag('drinks')).to.deep.equal([recIceWater, recJuice])
   })
 
-  it('should be able to filter favorites by name', () => {
+  it('should be able to store a recipe repository', () => {
     const newU = new User (daphne)
+    expect(newU.repository).to.deep.equal({})
+  })
+
+  it('should be able to store any recipe repository', () => {
+    const newU = new User (daphne, dummyRepo)
+    expect(newU.repository).to.deep.equal(dummyRepo)
+  })
+
+  it('should be able to filter favorites by multiple tags', () => {
+    const newU = new User (daphne, dummyRepo)
+    newU.addToFav(recIceWater)
+    newU.addToFav(recCereal)
+    newU.addToFav(recJuice)
+    expect(newU.favoritesByTag('drinks', 'fruity')).to.deep.equal([recJuice])
+    expect(newU.favoritesByTag('breakfast', '5 minute')).to.deep.equal([recCereal, recJuice])
+  })
+
+  it('should be able to filter favorites by name', () => {
+    const newU = new User (daphne, dummyRepo)
     newU.addToFav(recIceWater)
     newU.addToFav(recCereal)
     newU.addToFav(recJuice)
     expect(newU.favoritesByName('Cereal')).to.deep.equal([recCereal])
   })
 
-  it.only('should be able to filter favorites by ingredients', () => {
-    const newU = new User (daphne, ingIndex)
+  it('should be able to filter favorites by ingredients', () => {
+    const newU = new User (daphne, dummyRepo)
     newU.addToFav(recIceWater)
     newU.addToFav(recCereal)
     newU.addToFav(recJuice)
