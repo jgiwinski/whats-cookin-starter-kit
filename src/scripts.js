@@ -1,5 +1,5 @@
-import MicroModal from 'micromodal';
-var MicroModal = require('../node_modules/micromodal');
+// import MicroModal from 'micromodal';
+// var MicroModal = require('../node_modules/micromodal');
 
 const recipesBtn = document.querySelector('.recipe-btn');
 const favRecipeBtn = document.querySelector('.fav-recipe-btn');
@@ -31,6 +31,8 @@ function viewAllRecipes() {
   addHidden(favRecipeDisplay);
   removeHidden(allRecipeDisplay);
 }
+
+MicroModal.init()
 
 function populateRecipes() {
   recipeDate.forEach(recipe => {
