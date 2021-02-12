@@ -1,7 +1,6 @@
 class Pantry {
-  constructor(user) {
-    this.userPantry = user.pantry;
-    this.recipe = user.recipesToCook;
+  constructor(pantry) {
+    this.userPantry = pantry;
     this.shoppingList = [];
   }
 
@@ -11,13 +10,23 @@ class Pantry {
   }
 
   findMissingIng(recipe) {
-    let userIng = this.userPantry.map(allUserIng => {
-      return allUserIng.ingredient;
+    let missingAmount = [];
+    this.userPantry.forEach(allUserIng => {
+      recipe.ingredients.forEach(ing => {
+        if(allUserIng.ingredient === ing.id){
+          return allUserIng.amount >= ing.quantity.amount ? true : missingAmount.push({
+            id: ing.id, amount: ing.quantity.amount - allUserIng.amount
+          })
+        }
+      })
     });
-    let missingIng = recipe.ingredients.filter(ing => {
-      return !userIng.includes(ing.id)
-    });
-    return missingIng;
+    console.log(missingAmount);
+    return missingAmount;
+    // let missingIng = recipe.ingredients.filter(ing => {
+    //   return !userIng.includes(ing.id)
+    // });
+    // this.addtoShoppingList(missingIng)
+    // return missingIng;
   }
 
   addtoShoppingList(ing) {

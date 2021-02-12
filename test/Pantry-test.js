@@ -12,49 +12,39 @@ const {
 } = require('../test/dummy-recipes');
 
 describe('Pantry', () => {
-  // let pantry;
-  // let recipe;
-  // beforeEach(function () {
-  //   pantry = new Pantry(userData[0].pantry);
-  //   recipe = new Recipe(recipeData[0]);
-  // });
+  let pantry;
+  let recipe;
+  let recipe2;
+  beforeEach(function () {
+    pantry = new Pantry(simon);
+    recipe = new Recipe(recIceWater);
+    recipe2 = new Recipe(recCereal);
+  });
 
   it('should be a function', () => {
     expect(Pantry).to.be.a('function');
   });
 
   it('should be an instance of Pantry', () => {
-    const pantry = new Pantry(daphne);
     expect(pantry).to.be.an.instanceOf(Pantry);
   });
 
   it('should hold user pantry data', () => {
-    const pantry = new Pantry(simon);
     expect(pantry.userPantry).to.deep.equal(simon.pantry);
   });
 
-  // it('should default as an empty pantry', () => {
-  //   const pantry = new Pantry();
-  //   expect(pantry.userPantry).to.deep.equal([]);
-  // });
-
   it('should default to an empty shopping list', () => {
-    const pantry = new Pantry(simon);
     expect(pantry.shoppingList).to.deep.equal([]);
   });
 
-  // it('should store an instance of recipe the user wants to make', () => {
-  //   const pantry = new Pantry(simon);
-  //   expect(pantry.recipe[0]).to.be.an.instanceof(Recipe);
-  // });
-
   describe('hasAllIng', () => {
 
-    it('should say if there are missing ingredients from the list', () => {
-      const pantry = new Pantry(simon);
-      expect(pantry.hasAllIng(recCereal)).to.deep.equal(true);
-      const pantry2 = new Pantry(simon);
-      expect(pantry2.hasAllIng(recIceWater)).to.deep.equal(false);
+    it('should check if there are missing ingredients from the list', () => {
+      expect(pantry.hasAllIng(recipe2)).to.deep.equal(true);
+    });
+
+    it('should return false if user does not have all ingredients to make recipe', () => {
+      expect(pantry2.hasAllIng(recipe)).to.deep.equal(false);
     });
 
   });
@@ -62,14 +52,17 @@ describe('Pantry', () => {
   describe('findMissingIng', () => {
 
     it('should return the missing ingredients from the recipe', () => {
-        const pantry = new Pantry(simon);
-        expect(pantry.findMissingIng(recIceWater)).to.deep.equal([{ id: 78334, quantity: { amount: 0.5, unit: 'c' } }])
+        expect(pantry.findMissingIng(recCereal).to.deep.equal([{id: 365, amount: 2}]))
+        // expect(pantry.findMissingIng(recipe)).to.deep.equal([{ id: 78334, quantity: { amount: 0.5, unit: 'c' } }])
         // do we need to return the specific amount of each ing? if so im fucked....
     });
 
-  });
+    it('should list additional ingredients in shopping list that the user needs to make recipe', () => {
+      pantry.findMissingIng(recipe)
+      expect(pantry.shoppingList).to.be.an('array').with.a.lengthOf(1);
+    });
 
-  // add ing to shopping list if not in pantry
+  });
 
   // test for: remove ing from pantry if ingList has all the ing in the recipe and user cooks recipe.
 

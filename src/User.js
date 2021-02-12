@@ -1,8 +1,10 @@
+const Pantry = require('./Pantry');
+
 class User {
   constructor (person, repository) {
     this.name = person.name
     this.id = person.id
-    this.pantry = person.pantry
+    this.pantry = new Pantry(person.pantry)
     this.repository = repository || {}
     this.favoriteRecipes = []
     this.recipesToCook = []
@@ -41,7 +43,7 @@ class User {
       return recipe.name === targetName
     })
   }
-  
+
   favoritesByIngredients (targetIngredient) {
     return this.favoriteRecipes.filter(recipe => {
       return recipe.ingNames(this.repository.ingredientIndex).includes(targetIngredient)
