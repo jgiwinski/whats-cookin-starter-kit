@@ -13,22 +13,31 @@ const allRecipeDisplay = document.querySelector('.all-recipes');
 const recipeCard = document.querySelector('recipe-card-display');
 const recipePopUp = document.querySelector('#modal-1');
 const modaldummy = document.querySelector('.modal')
+const tagList = document.querySelector('.tag-list')
 
-window.addEventListener('load', populateRecipes)
+window.addEventListener('load', populateAll)
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 allRecipeDisplay.addEventListener('click', openModal)
 // MicroModal.show('modal-1')
 
-function populateTags (taggedItem) {
+function populateRecipeTags (taggedItem) {
   return taggedItem.tags.reduce((tagList, tag) => {
-    tagList += `<p class="tag">${tag}</p>\n`
+    tagList += `<p class="tag">#${tag}</p>\n`
     return tagList
   }, "")
 }
 
-function populateIngredients () {
+function populateModalContent (baseRecipe) {
+  return `<h3>${baseRecipe.name}<h3>
+  <h4>Igredients<h4>
+  <h4>Instructions<h4>
+  `
+}
 
+function populateIngredients (baseRecipe) {
+  const names = baseRecipe.ingNames(ingredientsData)
+  names.reduce()
 }
 
 function populateInstructions () {
@@ -39,24 +48,45 @@ function populateRecipes() {
   recipeData.forEach(recipe => {
     allRecipeDisplay.innerHTML +=
     `<section class="recipe-card-display center-column">
+      <i class="far fa-bookmark fa-4x"></i>
       <img src="${recipe.image}"/>
       <h4>${recipe.name}</h4>
       <div class="tag-box">
-        ${populateTags(recipe)}
+        ${populateRecipeTags(recipe)}
       </div>
     </section>
     <div id="${recipe.id}" class="modal">
       <div class="modal-content">
         <span class="close">&times;</span>
-          <p>${recipe.name}</p>
+          ${populateModalContent(recipe)}
       </div>
     </div>`
   })
 }
 
+function populateTagList () {
+  const allTags = recipeData.reduce((tagsOnly, recipe) => {
+    recipe.tags.forEach(tag => {
+      if (!tagsOnly.includes(tag))
+      tagsOnly.push(tag)
+    })
+    return tagsOnly
+  }, []).sort();
+
+  allTags.forEach(t => {
+    tagList.innerHTML += 
+    `<input type="checkbox" id="${t}Tag" />
+    <label for="${t}Tag">#${t}</label><br />`
+  });
+}
+
+function populateAll () {
+  populateRecipes()
+  populateTagList()
+}
+
 function openModal () {
-  const chooseRecipe = event.target.closest(".modal")
-  chooseRecipe.style.display = "block"
+  Event.target.closest(".modal").style.display = "block"
 }
 
 

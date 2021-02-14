@@ -84,6 +84,10 @@ hr {
 }
 
 /* TAG LIST */
+input[type = checkbox] {
+  
+}
+
 .tag-list {
   width: 100%;
 }
