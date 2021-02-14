@@ -49,6 +49,14 @@ class User {
       return recipe.ingNames(this.repository.ingredientIndex).includes(targetIngredient)
     })
   }
+
+  cookRecipe(recipe) {
+    if(this.hasAllIng(recipe)){
+      removeIngFromPantry(recipe);
+    } else {
+      return `Sorry, looks like you don't have enough ingredients to make ${recipe.name}.`
+    }
+  }
 }
 
 module.exports = User;
