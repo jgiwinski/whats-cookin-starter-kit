@@ -5,36 +5,20 @@ class Pantry {
   }
 
   hasAllIng(recipe) {
-    // need to use .every()
-    // this.userPantry.every(ing => (this.userPantry.ingredient === recipe.ingredients.id) && (this.userPantry.amount >= recipe.ingredients.quantity.amount))
+    const idOnly = this.userPantry.reduce((idList, item) => {
+      idList.push(item.ingredient)
+      return idList;
+    },[])
 
-    recipe.ingredients.every(recItem => {
-      const idOnly = this.userPantry.reduce((idList, item) => {
-        return idList.push(item.ingredient)
-      },[])
-      console.log(idOnly)
-      if(this.userPantry.includes(recItem.id))
-    })
-
-    // const match = this.userPantry.find(pantryItem => {
-    //   recipe.ingredients.find(recipeIng =>
-    //     recipeIng.id === pantryItem.ingredient)
-    // });
-    // console.log(match)
-
-    // if(this.userPantry.every(ing => (this.userPantry.ingredient === recipe.ingredients.id) && (this.userPantry.amount >= recipe.ingredients.quantity.amount))){
-    //   return true;
-    // } else {
-    //   this.findMissingIng(recipe);
-    //   return false
-    // }
-
-   // if((this.userPantry.ingredient === recipe.ingredients.id) && (this.userPantry.amount >= recipe.ingredients.quantity.amount)){
-   //    return true
-   //  } else {
-   //    this.findMissingIng(recipe);
-   //    return false
-   //  }
+    const test1 = recipe.ingredients.every(recItem =>
+      idOnly.includes(recItem.id)
+    });
+    const test2 = xxx
+    if(test1 && test2){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   findMissingIng(recipe) {

@@ -53,7 +53,7 @@ describe('Pantry', () => {
   describe('hasAllIng', () => {
 
     it('should return false if there are missing ingredients from the list', () => {
-      expect(simonUser.pantry.hasAllIng(recCereal)).to.deep.equal(false);
+      expect(daphneUser.pantry.hasAllIng(recJuice)).to.deep.equal(false);
     });
 
     it('should return true if there are enough ingredients to make the recipe', () => {
