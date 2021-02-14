@@ -31,7 +31,9 @@ function populateRecipeTags (taggedItem) {
 function populateModalContent (baseRecipe) {
   return `<h3>${baseRecipe.name}<h3>
   <h4>Igredients<h4>
+  
   <h4>Instructions<h4>
+  <h5>Step #</h5>
   `
 }
 
