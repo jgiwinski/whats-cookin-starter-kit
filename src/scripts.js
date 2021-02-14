@@ -4,7 +4,6 @@
 // const recipeData = require('../data/recipes')
 // const usersData = require('../data/users')
 
-
 const recipesBtn = document.querySelector('.recipe-btn');
 const favRecipeBtn = document.querySelector('.fav-recipe-btn');
 const pantryBtn = document.querySelector('.pantry-btn');
@@ -109,5 +108,3 @@ function viewAllRecipes() {
   addHidden(favRecipeDisplay);
   removeHidden(allRecipeDisplay);
 }
-
-
