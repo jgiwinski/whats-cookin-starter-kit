@@ -8,20 +8,23 @@ const pantryBtn = document.querySelector('.pantry-btn');
 const favRecipeDisplay = document.querySelector('.fav-recipes-display');
 const allRecipeDisplay = document.querySelector('.all-recipes');
 //MAIN DISPLAY
+const body = document.querySelector('body');
 const nameSearchBar = document.querySelector('#search-name');
 const ingSearchBar = document.querySelector('#search-ing');
-const recipeCard = document.querySelector('recipe-card-display');
+// const recipeCard = document.querySelector('.recipe-card-display');
 const tagList = document.querySelector('.tag-list')
 const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit-tag');
 const recipeDetails = document.querySelector('.recipe-details');
+let instructions = document.querySelector('.instructions')
+
 
 //EVENTLISTENERS
 window.addEventListener('load', populateAll)
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 submitBtn.addEventListener('click', searchByTag);
-recipeCard.addEventListener('click', triggerDetailView)
+body.addEventListener('click', triggerDetailView)
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -103,20 +106,14 @@ function populateTagList () {
 function populateRecipes(recipe) {
   recipe.forEach(recipe => {
     allRecipeDisplay.innerHTML +=
-    `<section class="recipe-card-display center-column">
+    `<section class="recipe-card-display center-column" id="${recipe.id}">
       <i class="far fa-bookmark fa-4x"></i>
-      <img src="${recipe.image}"/>
-      <h4>${recipe.name}</h4>
+      <img src="${recipe.image}" id="${recipe.id}"/>
+      <h4 id="${recipe.id}">${recipe.name}</h4>
       <div class="tag-box">
         ${populateRecipeTags(recipe)}
       </div>
-    </section>
-    <div id="${recipe.id}" class="modal">
-      <div class="modal-content hidden">
-        <span class="close">&times;</span>
-          ${populateModalContent(recipe)}
-      </div>
-    </div>`
+    </section>`;
   })
 }
 
@@ -137,23 +134,49 @@ function populateModalContent (baseRecipe) {
 
 function triggerDetailView () {
   let click = event.target.id;
-  const card = allRecipes.recipeIndex.find(recipe => recipe.id === click)
+  const card = newRepository.recipeIndex.find(recipe => recipe.id === Number.parseInt(click))
   if (card) {
   viewRecDetails(card)
   }
 }
 
 function viewRecDetails (card) {
+  console.log(card)
   recipeDetails.classList.toggle('hidden');
-  populateIngredients(card);
-  populateInstructions(card);
+  recipeDetails.innerHTML = `
+    <section class="recipe-details main-order-row card-overlay">
+      <article class="center-column">
+        <img class="detail-img" src="${card.image}"/>
+        <div class="cost-ing">
+          <h4>Total Cost: $400</h4>
+          <div class="ing-details">
+          </div>
+        </div>
+      </article>
+      <article class="column details-title">
+        <h1 id="rec-title">${card.name}</h1>
+        <div class="instructions">
+          ${populateInstructions(card)}
+        </div>
+      </article>
+    </section>`;
+
+  // populateIngredients(card);
 }
 
 function populateIngredients (baseRecipe) {
   const names = baseRecipe.ingNames(newRepository.ingredientIndex)
-  names.reduce()
+  names.reduce((ingList, ing) => {
+    ingredients += `<p class="tag">#${tag}</p>\n`
+    return tagList
+  },[])
 }
 
-function populateInstructions () {
-
+function populateInstructions (baseRecipe) {
+  const steps = baseRecipe.retInstructions();
+  console.log(steps)
+  steps.reduce((allSteps, step) => {
+    instructions += `<p>${step}</p>\n`
+    return allSteps;
+  },"")
 }

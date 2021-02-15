@@ -32,4 +32,6 @@ class RecipeRepository {
   }
 }
 
-module.exports = RecipeRepository;
+if (typeof module !== 'undefined') {
+  module.exports = someClassName;
+}

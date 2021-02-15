@@ -162,17 +162,24 @@ h4 {
 }
 
 .tag-box {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   height: 5em;
   width: 100%;
-  padding: 2%
+}
+
+p {
+  margin: 0;
 }
 
 .tag {
   border-style: solid;
   border-radius: 10px;
+  height: 25%;
   background-color: #ededed;
-  display: inline;
-  padding: 1%;
+  padding: 3px;
+  margin: 1px; 
 }
 
 /* RECIPE DETAILS OVERLAY */
