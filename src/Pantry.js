@@ -4,37 +4,31 @@ class Pantry {
     this.shoppingList = [];
   }
 
-  hasAllIng(recipe) {
-    const idOnly = this.userPantry.reduce((idList, item) => {
-      idList.push(item.ingredient)
-      return idList;
-    },[])
-
-    const test1 = recipe.ingredients.every(recItem =>
-      idOnly.includes(recItem.id)
-    });
-    const test2 = xxx
-    if(test1 && test2){
-      return true;
-    } else {
-      return false;
-    }
+  findIngredient (id) {
+    return this.userPantry.find(pantryItem => pantryItem.ingredient === id)
   }
 
-  findMissingIng(recipe) {
-    let missingAmount = [];
-    this.userPantry.forEach(pantryItem => {
-      recipe.ingredients.forEach(ing => {
-        if (pantryItem.ingredient === ing.id && pantryItem.amount < ing.quantity.amount) {
-          missingAmount.push({
-            id: ing.id,
-            amount: ing.quantity.amount - pantryItem.amount
-          })
-        }
-      })
-    });
-    return missingAmount;
-    // this is just the missing amount. what if the ing doesnt exist at all?
+  findMissingIng (recipe) {
+    let missingIngredients = recipe.ingredients.reduce((report, recIng) => {
+      if (!this.findIngredient(recIng.id)) {
+        report.push({id: recIng.id, amount: recIng.quantity.amount})
+      } else if (this.findIngredient(recIng.id).amount < recIng.quantity.amount) {
+        report.push({id: recIng.id, amount: (recIng.quantity.amount - this.findIngredient(recIng.id).amount)})
+      }
+      return report
+    }, [])
+    return missingIngredients
+  }
+
+  hasAllIng(recipe) {
+    let result = true
+    recipe.ingredients.forEach(recIng => {
+      const inPantry = this.findIngredient(recIng.id)
+      if (!inPantry || inPantry.amount < recIng.quantity.amount) {
+        result = false;
+      }
+    })
+    return result
   }
 
   addtoShoppingList(ing) {

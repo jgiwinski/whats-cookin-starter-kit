@@ -1,7 +1,6 @@
-//RECIPE DATA
+
 const allRecipes = recipeData.map(recipe => {return new Recipe(recipe)})
 const newRepository = new RecipeRepository(allRecipes, ingredientsData);
-//NAV BAR
 const recipesBtn = document.querySelector('.recipe-btn');
 const favRecipeBtn = document.querySelector('.fav-recipe-btn');
 const pantryBtn = document.querySelector('.pantry-btn');
@@ -17,7 +16,6 @@ const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit-tag');
 const recipeDetails = document.querySelector('.recipe-details');
 let instructions = document.querySelector('.instructions')
-
 
 //EVENTLISTENERS
 window.addEventListener('load', populateAll)
@@ -85,6 +83,25 @@ function searchByTag () {
 function populateAll () {
   populateRecipes(newRepository.recipeIndex);
   populateTagList();
+  
+function populateRecipes() {
+  recipeRepo.recipeIndex.forEach(recipe => {
+    allRecipeDisplay.innerHTML +=
+    `<section class="recipe-card-display center-column">
+      <i class="far fa-bookmark fa-4x"></i>
+      <img src="${recipe.image}"/>
+      <h4>${recipe.name}</h4>
+      <div class="tag-box">
+        ${populateRecipeTags(recipe)}
+      </div>
+    </section>
+    <div id="${recipe.id}" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+          ${populateModalContent(recipe)}
+      </div>
+    </div>`
+  })
 }
 
 function populateTagList () {

@@ -180,6 +180,10 @@ const simon = {
   ]
 }
 
+const simonUser = new User(simon);
+const daphneUser = new User(daphne);
+const daphneClone = new User (daphne);
+
 module.exports = {
   recIceWater,
   recCereal,
@@ -189,4 +193,7 @@ module.exports = {
   dummyRepo,
   daphne,
   simon,
+  daphneUser,
+  daphneClone,
+  simonUser,
 }
