@@ -51,7 +51,7 @@ class User {
   }
 
   cookRecipe(recipe) {
-    if(this.hasAllIng(recipe)){
+    if (this.pantry.hasAllIng(recipe)) {
       removeIngFromPantry(recipe);
     } else {
       return `Sorry, looks like you don't have enough ingredients to make ${recipe.name}.`
