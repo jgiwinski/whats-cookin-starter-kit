@@ -1,13 +1,6 @@
-// import MicroModal from 'micromodal';
-// var MicroModal = require('../node_modules/micromodal');
-// const ingredientsData = require('../data/ingredients')
-// const recipeData = require('../data/recipes')
-// const usersData = require('../data/users')
-// const RecipeRepository = require('./RecipeRepository');
-
+//RECIPE DATA
 const allRecipes = recipeData.map(recipe => {return new Recipe(recipe)})
 const newRepository = new RecipeRepository(allRecipes, ingredientsData);
-
 //NAV BAR
 const recipesBtn = document.querySelector('.recipe-btn');
 const favRecipeBtn = document.querySelector('.fav-recipe-btn');
@@ -21,15 +14,14 @@ const recipeCard = document.querySelector('recipe-card-display');
 const tagList = document.querySelector('.tag-list')
 const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit-tag');
-
+const recipeDetails = document.querySelector('.recipe-details');
 
 //EVENTLISTENERS
 window.addEventListener('load', populateAll)
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 submitBtn.addEventListener('click', searchByTag);
-// allRecipeDisplay.addEventListener('click', openModal)
-// MicroModal.show('modal-1')
+recipeCard.addEventListener('click', triggerDetailView)
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -141,6 +133,20 @@ function populateModalContent (baseRecipe) {
   <h4>Instructions<h4>
   <h5>Step #</h5>
   `
+}
+
+function triggerDetailView () {
+  let click = event.target.id;
+  const card = allRecipes.recipeIndex.find(recipe => recipe.id === click)
+  if (card) {
+  viewRecDetails(card)
+  }
+}
+
+function viewRecDetails (card) {
+  recipeDetails.classList.toggle('hidden');
+  populateIngredients(card);
+  populateInstructions(card);
 }
 
 function populateIngredients (baseRecipe) {
