@@ -148,7 +148,7 @@ const daphne = {
   "pantry": [
     {
       "ingredient": 15,
-      "amount": 12
+      "amount": 4
     },
     {
       "ingredient": 365,
@@ -171,7 +171,7 @@ const simon = {
     },
     {
       "ingredient": 15,
-      "amount": 7
+      "amount": 24
     },
     {
       "ingredient": 365,
@@ -180,9 +180,6 @@ const simon = {
   ]
 }
 
-const simonUser = new User(simon);
-const daphneUser = new User(daphne);
-
 module.exports = {
   recIceWater,
   recCereal,
@@ -190,6 +187,6 @@ module.exports = {
   ingIndex,
   dummyRecipes,
   dummyRepo,
-  daphneUser,
-  simonUser,
+  daphne,
+  simon,
 }
