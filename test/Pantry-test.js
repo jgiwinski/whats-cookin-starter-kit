@@ -1,25 +1,16 @@
 const chai = require('chai');
 const expect = chai.expect;
 const Pantry = require('../src/Pantry');
-const Recipe = require('../src/Recipe');
 const {
   recIceWater,
   recCereal,
   recJuice,
-  ingIndex,
+  daphneClone,
   daphneUser,
   simonUser
 } = require('../test/dummy-recipes');
 
 describe('Pantry', () => {
-  let pantry;
-  // let recipe;
-  // let recipe2;
-  beforeEach(function () {
-    // pantry = new Pantry(simonUser);
-    // recipe = new Recipe(recIceWater);
-    // recipe2 = new Recipe(recCereal);
-  });
 
   it('should be a function', () => {
     expect(Pantry).to.be.a('function');
@@ -51,12 +42,11 @@ describe('Pantry', () => {
   });
 
   describe('hasAllIng', () => {
-
-    it('should return false if there are missing ingredients from the list', () => {
+    it('should return false if user is missing any ingredients', () => {
       expect(daphneUser.pantry.hasAllIng(recJuice)).to.deep.equal(false);
     });
 
-    it('should return true if there are enough ingredients to make the recipe', () => {
+    it('should return true if user posesses all necessary ingredients', () => {
       expect(daphneUser.pantry.hasAllIng(recCereal)).to.deep.equal(true);
     });
 
@@ -64,7 +54,7 @@ describe('Pantry', () => {
 
   describe('findMissingIng', () => {
 
-    it('should return the missing ingredients from the recipe', () => {
+    it('should accurately return the missing ingredients from the recipe', () => {
       expect(simonUser.pantry.findMissingIng(recCereal)).to.deep.equal([{id: 15, amount: 5}])
     });
 
@@ -77,8 +67,8 @@ describe('Pantry', () => {
   });
 
   it('should update the amount of an item if it is used in a recipe', () => {
-    daphneUser.pantry.removeIngFromPantry(recCereal);
-    expect(daphneUser.pantry.userPantry).to.deep.equal([
+    daphneClone.pantry.removeIngFromPantry(recCereal);
+    expect(daphneClone.pantry.userPantry).to.deep.equal([
       {
         "ingredient": 15,
         "amount": 0
@@ -95,8 +85,8 @@ describe('Pantry', () => {
   });
 
   it('should only remove ingredients if the user has enough in their pantry', () => {
-    simonUser.pantry.cookRecipe(recIceWater);
-    expect(simonUser.pantry.cookRecipe(recIceWater)).to.deep.equal(`Sorry, looks like you don't have enough ingredients to make Ice Water.`)
+    simonUser.cookRecipe(recIceWater);
+    expect(simonUser.cookRecipe(recIceWater)).to.deep.equal(`Sorry, looks like you don't have enough ingredients to make Ice Water.`)
   });
 
 });

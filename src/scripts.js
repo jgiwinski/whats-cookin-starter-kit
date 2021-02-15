@@ -1,8 +1,6 @@
 // import MicroModal from 'micromodal';
 // var MicroModal = require('../node_modules/micromodal');
-// const ingredientsData = require('../data/ingredients')
-// const recipeData = require('../data/recipes')
-// const usersData = require('../data/users')
+// const RecipeRepository = require('./RecipeRepository');
 
 const recipesBtn = document.querySelector('.recipe-btn');
 const favRecipeBtn = document.querySelector('.fav-recipe-btn');
@@ -13,6 +11,7 @@ const recipeCard = document.querySelector('recipe-card-display');
 const recipePopUp = document.querySelector('#modal-1');
 const modaldummy = document.querySelector('.modal')
 const tagList = document.querySelector('.tag-list')
+const recipeRepo = new RecipeRepository (recipeData, ingredientsData)
 
 window.addEventListener('load', populateAll)
 favRecipeBtn.addEventListener('click', viewFavRecipes);
@@ -46,7 +45,7 @@ function populateInstructions () {
 }
 
 function populateRecipes() {
-  recipeData.forEach(recipe => {
+  recipeRepo.recipeIndex.forEach(recipe => {
     allRecipeDisplay.innerHTML +=
     `<section class="recipe-card-display center-column">
       <i class="far fa-bookmark fa-4x"></i>
