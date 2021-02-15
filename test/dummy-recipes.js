@@ -148,7 +148,7 @@ const daphne = {
   "pantry": [
     {
       "ingredient": 15,
-      "amount": 12
+      "amount": 4
     },
     {
       "ingredient": 365,
@@ -171,7 +171,7 @@ const simon = {
     },
     {
       "ingredient": 15,
-      "amount": 7
+      "amount": 24
     },
     {
       "ingredient": 365,
@@ -191,6 +191,8 @@ module.exports = {
   ingIndex,
   dummyRecipes,
   dummyRepo,
+  daphne,
+  simon,
   daphneUser,
   daphneClone,
   simonUser,

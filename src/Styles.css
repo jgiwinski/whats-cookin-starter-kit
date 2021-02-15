@@ -62,10 +62,10 @@ h1 {
   justify-content: center;
 }
 
-#search-bar {
+.search-bar {
   border-radius: 10px;
   outline: none;
-  width: 50%;
+  width: 25%;
   height: 2em;
   margin: 2em 2em 0 2em;
   text-align: center;
@@ -84,31 +84,34 @@ hr {
 }
 
 /* TAG LIST */
-input[type = checkbox] {
-  
-}
-
 .tag-list {
   width: 100%;
 }
 
 .side-tag-display {
-  /* position: fixed; */
-  /* left: 0; */
-  /* top: 30px; */
   border-style: solid;
   min-width: 15%;
-  height: 1000px;
+  height: 500px;
   margin: 2em 0 2em 2em;
   padding: 1em;
   box-shadow: 0 0 .75em #808080
+}
+
+.submit-tag {
+  width: 50%;
+  height: 7%;
+  border-radius: 10px;
+  background-color: #184713;
+  color: white;
+  border: none;
+  outline: none;
 }
 
 /* FEATURED AND FAVORITE RECIPES */
 .main-order-row {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: start;
 }
 
 .recipe-cards {
@@ -123,7 +126,7 @@ input[type = checkbox] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: space-around;
 }
 
 .recipe-card-display {
@@ -132,8 +135,8 @@ input[type = checkbox] {
   border-style: solid;
   border-width: 3px;
   padding: .75em;
-  height: 25em;
-  width: 25%;
+  height: 30em;
+  width: 18em;
   margin-bottom: 2em;
   box-shadow: 0 0 .75em #808080
 }
@@ -148,7 +151,6 @@ img {
 }
 
 .fa-bookmark {
-  /* color: white; */
   position: absolute;
   top: -1%;
   left: .5em;
@@ -160,17 +162,67 @@ h4 {
 }
 
 .tag-box {
-  height: 2em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 5em;
   width: 100%;
-  padding: 2%
+}
+
+p {
+  margin: 0;
 }
 
 .tag {
   border-style: solid;
   border-radius: 10px;
+  height: 25%;
   background-color: #ededed;
-  display: inline;
+  padding: 3px;
+  margin: 1px; 
+}
+
+/* RECIPE DETAILS OVERLAY */
+.recipe-details {
+  height: 70%;
+  width: 70%;
+  border-radius: 10px;
+  border-style: solid;
+  border-width: 3px;
+  box-shadow: 0 0 5em #808080;
+  background-color: white;
   padding: 1%;
+}
+
+.card-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.detail-img {
+  height: 18em;
+  border-style: solid;
+}
+
+.details-title {
+  width: 90%;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#rec-title {
+  margin-left: 10%;
+}
+
+.instructions {
+  height: 100%;
+  display: block;
 }
 
 /* PANTRY */
@@ -180,9 +232,5 @@ h4 {
 } */
 
 .hidden {
-  display: none;
-}
-
-.modal {
   display: none;
 }
