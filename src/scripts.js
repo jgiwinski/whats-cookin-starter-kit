@@ -16,7 +16,7 @@ const body = document.querySelector('body');
 const nameSearchBar = document.querySelector('#search-name');
 const ingSearchBar = document.querySelector('#search-ing');
 const tagList = document.querySelector('.tag-list');
-// const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+let allCheckboxes = document.querySelectorAll('input[name="all-tags"]');
 const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
 let instructions = document.querySelector('.instructions');
@@ -32,14 +32,12 @@ const closeShoppingBtn = document.getElementById('closeShopping')
 // GLOBAL VARS
 let currentUser = null;
 
-
 //EVENTLISTENERS
 window.addEventListener('load', populateAll);
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
-submitBtn.addEventListener('click', searchByTag);
 body.addEventListener('click', triggerDetailView);
-// tagList.addEventListener('click', searchByTag);
+submitBtn.addEventListener('click', searchByTag);
 pantryBtn.addEventListener('click', viewPantry);
 closePantryBtn.addEventListener('click', closePantry);
 closeShoppingBtn.addEventListener('click', closeShopping);
@@ -94,9 +92,15 @@ function searchByIng() {
 }
 
 function searchByTag () {
-  newRepository.filterByTag();
+  let checked = []
+  allCheckboxes.forEach(box => {
+    if (box.checked) {
+      checked.push(box.value)
+    }
+  })
+  const result = newRepository.filterByTag(checked);
   clearDisplay();
-  populateRecipes(returnRecipe);
+  populateRecipes(result);
 }
 
 function declareNewUser () {
@@ -108,23 +112,6 @@ function populateAll () {
   declareNewUser();
   populatePantry();
   populateRecipes(newRepository.recipeIndex);
-  populateTagList();
-}
-
-function populateTagList () {
-  const allTags = recipeData.reduce((tagsOnly, recipe) => {
-    recipe.tags.forEach(tag => {
-      if (!tagsOnly.includes(tag))
-      tagsOnly.push(tag)
-    })
-    return tagsOnly
-  }, []).sort();
-
-  allTags.forEach(t => {
-    tagList.innerHTML +=
-    `<input type="checkbox" value="${t}" id="${t}Tag" />
-    <label for="${t}Tag">#${t}</label><br />`
-  });
 }
 
 function populateRecipes(recipe) {
