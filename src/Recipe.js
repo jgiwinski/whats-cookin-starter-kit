@@ -20,7 +20,7 @@ class Recipe {
     const state = []
     this.ingredients.forEach(ing => {
       state.push(
-        (ing.quantity.amount) * (ingredientsReference.find(entry => entry.id === ing.id).costPerUnit)
+        (ing.quantity.amount) * (ingredientsReference.find(entry => entry.id === ing.id).estimatedCostInCents)
       )
     })
     return Math.ceil(state

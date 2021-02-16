@@ -15,12 +15,10 @@ const allRecipeDisplay = document.querySelector('.all-recipes');
 const body = document.querySelector('body');
 const nameSearchBar = document.querySelector('#search-name');
 const ingSearchBar = document.querySelector('#search-ing');
-// const recipeCard = document.querySelector('.recipe-card-display');
 const tagList = document.querySelector('.tag-list');
-const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+// const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
-
 let instructions = document.querySelector('.instructions');
 // PANTRY VIEW
 const pantryView = document.getElementById('pantryView');
@@ -41,9 +39,10 @@ favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 submitBtn.addEventListener('click', searchByTag);
 body.addEventListener('click', triggerDetailView);
+// tagList.addEventListener('click', searchByTag);
 pantryBtn.addEventListener('click', viewPantry);
 closePantryBtn.addEventListener('click', closePantry);
-closeShoppingBtn.addEventListener('click', closeShopping)
+closeShoppingBtn.addEventListener('click', closeShopping);
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -95,8 +94,7 @@ function searchByIng() {
 }
 
 function searchByTag () {
-  // allCheckboxes.
-  // newRepository.filterByTag();
+  newRepository.filterByTag();
   clearDisplay();
   populateRecipes(returnRecipe);
 }
@@ -134,9 +132,9 @@ function populateRecipes(recipe) {
     allRecipeDisplay.innerHTML +=
     `<section class="recipe-card-display center-column" id="${recipe.id}">
       <i class="far fa-bookmark fa-4x"></i>
-      <img src="${recipe.image}" id="${recipe.id}"/>
+      <img src="${recipe.image}"/>
       <button class="green-btn" id="cook-btn">Cook Queue</button>
-      <h4 id="${recipe.id}">${recipe.name}</h4>
+      <h4>${recipe.name}</h4>
       <div class="tag-box">
         ${populateRecipeTags(recipe)}
       </div>
@@ -160,7 +158,7 @@ function populateModalContent (baseRecipe) {
 }
 
 function triggerDetailView () {
-  let click = event.target.id;
+  let click = event.target.parentNode.id;
   const card = newRepository.recipeIndex.find(recipe => recipe.id === Number.parseInt(click))
   if (card) {
   viewRecDetails(card)
@@ -170,7 +168,7 @@ function triggerDetailView () {
 function triggerFavorites () {
   const recipeId = event.target.id;
   const recipe = newRepository.recipeIndex.find(recipe => recipe.id === Number.parseInt(recipeId))
-  
+
 
 }
 
@@ -195,8 +193,9 @@ function viewRecDetails (card) {
 }
 
 function populateCost (baseRecipe) {
-  const totalCost = baseRecipe.calcCost(newRepository.ingredientIndex)
-  return totalCost;
+  let totalCost = baseRecipe.calcCost(newRepository.ingredientIndex)
+  let dollarCost = `$${totalCost / 100}`;
+  return dollarCost;
 }
 
 function populateIngredients (baseRecipe) {
@@ -221,7 +220,7 @@ function populateInstructions (baseRecipe) {
 
 function populatePantry () {
   currentUser.pantry.userPantry.forEach(pantryItem => {
-    pantryTable.innerHTML += 
+    pantryTable.innerHTML +=
     `<tr>
       <td>${newRepository.ingredientIndex.find(ing => ing.id === pantryItem.ingredient).name}</td>
       <td>${pantryItem.amount}</td>
@@ -230,7 +229,7 @@ function populatePantry () {
 }
 
 function refreshPantry () {
-  pantryTable.innerHTML = 
+  pantryTable.innerHTML =
   `<tr>
     <th>Ingredient</th>
     <th>Quantity</th>
@@ -262,7 +261,7 @@ function attemptCook () {
 
 function populateShoppingList () {
   currentUser.pantry.findMissingIng().forEach(missItem => {
-    shoppingView.innerHTML += 
+    shoppingView.innerHTML +=
     `<tr>
       <td>${newRepository.ingredientIndex.find(ing => ing.id === missItem.id).name}</td>
       <td>${missItem.amount}</td>
