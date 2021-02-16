@@ -90,6 +90,7 @@ hr {
 
 .side-tag-display {
   border-style: solid;
+  border-radius: 10px;
   min-width: 15%;
   height: 500px;
   margin: 2em 0 2em 2em;
@@ -97,7 +98,7 @@ hr {
   box-shadow: 0 0 .75em #808080
 }
 
-.submit-tag {
+.green-btn {
   width: 50%;
   height: 7%;
   border-radius: 10px;
@@ -156,6 +157,15 @@ img {
   left: .5em;
 }
 
+#cook-btn {
+  position: absolute;
+  top: 58%;
+  right: 7%;
+  width: 35%;
+  border-color: white;
+  border: solid;
+}
+
 h4 {
   margin: 0 0 7px 0;
   font-weight: bold;
@@ -185,8 +195,8 @@ p {
 /* RECIPE DETAILS OVERLAY */
 .recipe-details {
   position: fixed;
-  z-index: 1; 
-  height: 70%;
+  z-index: 1;
+  height: 75%;
   width: 70%;
   border-radius: 10px;
   border-style: solid;
@@ -203,7 +213,8 @@ p {
 }
 
 .detail-img {
-  height: 18em;
+  height: 10em;
+  width: 16em;
   border-style: solid;
 }
 
@@ -224,6 +235,7 @@ p {
 .instructions {
   height: 100%;
   display: block;
+  padding-left: 1em;
 }
 
 /* PANTRY */

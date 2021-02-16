@@ -13,7 +13,7 @@ const ingSearchBar = document.querySelector('#search-ing');
 // const recipeCard = document.querySelector('.recipe-card-display');
 const tagList = document.querySelector('.tag-list')
 const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
-const submitBtn = document.querySelector('.submit-tag');
+const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
 // let instructions = document.querySelector('.instructions')
 
@@ -107,6 +107,7 @@ function populateRecipes(recipe) {
     `<section class="recipe-card-display center-column" id="${recipe.id}">
       <i class="far fa-bookmark fa-4x"></i>
       <img src="${recipe.image}" id="${recipe.id}"/>
+      <button class="green-btn" id="cook-btn">Cook Queue</button>
       <h4 id="${recipe.id}">${recipe.name}</h4>
       <div class="tag-box">
         ${populateRecipeTags(recipe)}
@@ -141,12 +142,12 @@ function triggerDetailView () {
 function viewRecDetails (card) {
   recipeDetails.classList.toggle('hidden');
   recipeDetails.innerHTML = `
-      <article class="center-column">
+      <article class="column">
         <img class="detail-img" src="${card.image}"/>
         <div class="cost-ing">
-          <h4>Total Cost: $400</h4>
+          <h4>Total Cost: ${populateCost(card)}</h4>
           <div class="ing-details">
-          ${populateIngredients(card)}
+            ${populateIngredients(card)}
           </div>
         </div>
       </article>
@@ -156,22 +157,29 @@ function viewRecDetails (card) {
           ${populateInstructions(card)}
         </div>
       </article>`;
-  // populateIngredients(card);
+}
+
+function populateCost (baseRecipe) {
+  const totalCost = baseRecipe.calcCost(newRepository.ingredientIndex)
+  return totalCost;
 }
 
 function populateIngredients (baseRecipe) {
   const ing = baseRecipe.ingNames(newRepository.ingredientIndex)
-  return ing.reduce((ingList, ing) => {
-    ingList += `<p>${ing.}</p>\n`
-    return ingList
-  },"")
+  let result = '';
+  let index = 0;
+  console.log(index)
+  while(index < ing.length){
+    result += `<p>- ${ing[index]}: ${baseRecipe.ingredients[index].quantity.amount} ${baseRecipe.ingredients[index].quantity.unit}</p>\n`
+    index++
+  }
+  return result;
 }
 
 function populateInstructions (baseRecipe) {
   const steps = baseRecipe.retInstructions();
   return steps.reduce((allSteps, step) => {
     allSteps += `<p>Step ${step.number}: ${step.instruction}</p>\n`
-    console.log(allSteps)
     return allSteps;
   },"");
 }
