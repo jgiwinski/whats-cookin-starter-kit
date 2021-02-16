@@ -25,6 +25,10 @@ let instructions = document.querySelector('.instructions');
 const pantryView = document.getElementById('pantryView');
 const pantryTable = document.getElementById('pantryTable');
 const closePantryBtn = document.getElementById('closePantry')
+// SHOPPING LIST VIEW
+const shoppingView = document.getElementById('shoppingView')
+const shoppingTable = document.getElementById('shoppingList')
+const closeShoppingBtn = document.getElementById('closeShopping')
 
 // GLOBAL VARS
 let currentUser = null;
@@ -37,6 +41,7 @@ submitBtn.addEventListener('click', searchByTag);
 body.addEventListener('click', triggerDetailView);
 pantryBtn.addEventListener('click', viewPantry);
 closePantryBtn.addEventListener('click', closePantry);
+closeShoppingBtn.addEventListener('click', closeShopping)
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -226,12 +231,10 @@ function refreshPantry () {
 }
 
 function viewPantry () {
-  console.log('This works!')
   removeHidden(pantryView)
 }
 
 function closePantry () {
-  console.log('This works!')
   addHidden(pantryView)
 }
 
@@ -243,7 +246,27 @@ function attemptCook () {
       populatePantry();
       alert(`Nice work! The ingredients used have been removed from your pantry so make sure to stock up next time.`)
     } else {
-      alert(`Sorry, you don't have enough ingredients to cook ${recipe.name}. Proceed to see a report of ingredients still needed.`)
+      populateShoppingList();
+      viewShopping();
+      alert(`Sorry, you don't have enough ingredients to cook ${recipe.name}. The missing ingredients have been added to this shopping list for your convenience`)
     }
   })
+}
+
+function populateShoppingList () {
+  currentUser.pantry.findMissingIng().forEach(missItem => {
+    shoppingView.innerHTML += 
+    `<tr>
+      <td>${newRepository.ingredientIndex.find(ing => ing.id === missItem.id).name}</td>
+      <td>${missItem.amount}</td>
+    </tr>`
+  });
+}
+
+function viewShopping () {
+  removeHidden(shoppingView)
+}
+
+function closeShopping () {
+  addHidden(shoppingView)
 }
