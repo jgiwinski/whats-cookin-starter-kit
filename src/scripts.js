@@ -21,6 +21,10 @@ const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit-tag');
 const recipeDetails = document.querySelector('.recipe-details');
 let instructions = document.querySelector('.instructions');
+// PANTRY VIEW
+const pantryView = document.getElementById('pantryView');
+const pantryTable = document.getElementById('pantryTable');
+const closePantryBtn = document.getElementById('closePantry')
 
 // GLOBAL VARS
 let currentUser = null;
@@ -31,6 +35,8 @@ favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 submitBtn.addEventListener('click', searchByTag);
 body.addEventListener('click', triggerDetailView);
+pantryBtn.addEventListener('click', viewPantry);
+closePantryBtn.addEventListener('click', closePantry);
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -89,11 +95,13 @@ function searchByTag () {
 }
 
 function declareNewUser () {
-  currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
+  // currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
+  currentUser = allUsers[0]
 }
 
 function populateAll () {
   declareNewUser();
+  populatePantry();
   populateRecipes(newRepository.recipeIndex);
   populateTagList();
 }
@@ -198,3 +206,33 @@ function populateInstructions (baseRecipe) {
     return allSteps;
   },"")
 }
+
+function populatePantry () {
+  currentUser.pantry.userPantry.forEach(pantryItem => {
+    pantryTable.innerHTML += 
+    `<tr>
+      <td>${newRepository.ingredientIndex.find(ing => ing.id === pantryItem.ingredient).name}</td>
+      <td>${pantryItem.amount}</td>
+    </tr>`
+  });
+}
+
+function refreshPantry () {
+  pantryTable.innerHTML = 
+  `<tr>
+    <th>Ingredient</th>
+    <th>Quantity</th>
+  </tr>`
+}
+
+function viewPantry () {
+  console.log('This works!')
+  removeHidden(pantryView)
+}
+
+function closePantry () {
+  console.log('This works!')
+  addHidden(pantryView)
+}
+
+// function 
