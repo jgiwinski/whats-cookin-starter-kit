@@ -179,11 +179,13 @@ p {
   height: 25%;
   background-color: #ededed;
   padding: 3px;
-  margin: 1px; 
+  margin: 1px;
 }
 
 /* RECIPE DETAILS OVERLAY */
 .recipe-details {
+  position: fixed;
+  z-index: 1; 
   height: 70%;
   width: 70%;
   border-radius: 10px;
@@ -195,7 +197,6 @@ p {
 }
 
 .card-overlay {
-  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);

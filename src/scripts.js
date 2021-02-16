@@ -15,7 +15,7 @@ const tagList = document.querySelector('.tag-list')
 const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit-tag');
 const recipeDetails = document.querySelector('.recipe-details');
-let instructions = document.querySelector('.instructions')
+// let instructions = document.querySelector('.instructions')
 
 //EVENTLISTENERS
 window.addEventListener('load', populateAll)
@@ -83,25 +83,6 @@ function searchByTag () {
 function populateAll () {
   populateRecipes(newRepository.recipeIndex);
   populateTagList();
-  
-function populateRecipes() {
-  recipeRepo.recipeIndex.forEach(recipe => {
-    allRecipeDisplay.innerHTML +=
-    `<section class="recipe-card-display center-column">
-      <i class="far fa-bookmark fa-4x"></i>
-      <img src="${recipe.image}"/>
-      <h4>${recipe.name}</h4>
-      <div class="tag-box">
-        ${populateRecipeTags(recipe)}
-      </div>
-    </section>
-    <div id="${recipe.id}" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-          ${populateModalContent(recipe)}
-      </div>
-    </div>`
-  })
 }
 
 function populateTagList () {
@@ -158,15 +139,14 @@ function triggerDetailView () {
 }
 
 function viewRecDetails (card) {
-  console.log(card)
   recipeDetails.classList.toggle('hidden');
   recipeDetails.innerHTML = `
-    <section class="recipe-details main-order-row card-overlay">
       <article class="center-column">
         <img class="detail-img" src="${card.image}"/>
         <div class="cost-ing">
           <h4>Total Cost: $400</h4>
           <div class="ing-details">
+          ${populateIngredients(card)}
           </div>
         </div>
       </article>
@@ -175,25 +155,23 @@ function viewRecDetails (card) {
         <div class="instructions">
           ${populateInstructions(card)}
         </div>
-      </article>
-    </section>`;
-
+      </article>`;
   // populateIngredients(card);
 }
 
 function populateIngredients (baseRecipe) {
-  const names = baseRecipe.ingNames(newRepository.ingredientIndex)
-  names.reduce((ingList, ing) => {
-    ingredients += `<p class="tag">#${tag}</p>\n`
-    return tagList
-  },[])
+  const ing = baseRecipe.ingNames(newRepository.ingredientIndex)
+  return ing.reduce((ingList, ing) => {
+    ingList += `<p>${ing.}</p>\n`
+    return ingList
+  },"")
 }
 
 function populateInstructions (baseRecipe) {
   const steps = baseRecipe.retInstructions();
-  console.log(steps)
-  steps.reduce((allSteps, step) => {
-    instructions += `<p>${step}</p>\n`
+  return steps.reduce((allSteps, step) => {
+    allSteps += `<p>Step ${step.number}: ${step.instruction}</p>\n`
+    console.log(allSteps)
     return allSteps;
-  },"")
+  },"");
 }
