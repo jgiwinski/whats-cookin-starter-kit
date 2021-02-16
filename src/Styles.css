@@ -47,6 +47,8 @@ body, html {
 
 h1 {
   font-weight: bold;
+  text-align: center;
+  padding-bottom: 20px;
   margin: 0;
 }
 
@@ -239,6 +241,33 @@ p {
 }
 
 /* PANTRY */
+.pantry-view {
+  position: absolute;
+  z-index: 1;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.close-pantry {
+  background-color: transparent;
+  border: transparent;
+  font-size: 35px;
+  position: absolute;
+  right: 2.5%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
 
 /* .pantry-order {
 

@@ -67,21 +67,27 @@
         </section>
       </section>
     </main>
-    <!-- <section class="box-outline center-column">
+    <section class="hidden pantry-view recipe-details card-overlay" id="pantryView">
       <h1>Pantry</h1>
-      <article class="list">
-        <div>
-          <input type="checkbox" id="item1" />
-          <label for="item1">flour</label><br />
-          <input type="checkbox" id="item1" />
-          <label for="item1">flour</label><br />
-          <input type="checkbox" id="item1" />
-          <label for="item1">flour</label><br />
-          <input type="checkbox" id="item1" />
-          <label for="item1">flour</label><br />
-        </div>
-      </article>
-    </section> -->
+      <button class="close-pantry" id="closePantry">&#x02A02</button>
+        <table id="pantryTable">
+          <tr>
+            <th>Ingredient</th>
+            <th>Quantity</th>
+          </tr>
+        </table>
+    </section>
+    <section class="hidden recipe-details card-overlay" id="shoppingView">
+      <h1>Shopping List</h1>
+      <button class="close-pantry" id="closeShopping">&#x02A02</button>
+        <h1>Shopping List</h1>
+        <table id="shoppingList">
+          <tr>
+            <th>Ingredient</th>
+            <th>Quantity</th>
+          </tr>
+        </table>
+    </section>
     <script type="text/javascript" src="../data/users.js"></script>
     <script type="text/javascript" src="../data/recipes.js"></script>
     <script type="text/javascript" src="../data/ingredients.js"></script>

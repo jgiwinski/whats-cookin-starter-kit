@@ -22,6 +22,14 @@ const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
 
 let instructions = document.querySelector('.instructions');
+// PANTRY VIEW
+const pantryView = document.getElementById('pantryView');
+const pantryTable = document.getElementById('pantryTable');
+const closePantryBtn = document.getElementById('closePantry')
+// SHOPPING LIST VIEW
+const shoppingView = document.getElementById('shoppingView')
+const shoppingTable = document.getElementById('shoppingList')
+const closeShoppingBtn = document.getElementById('closeShopping')
 
 // GLOBAL VARS
 let currentUser = null;
@@ -33,6 +41,9 @@ favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 submitBtn.addEventListener('click', searchByTag);
 body.addEventListener('click', triggerDetailView);
+pantryBtn.addEventListener('click', viewPantry);
+closePantryBtn.addEventListener('click', closePantry);
+closeShoppingBtn.addEventListener('click', closeShopping)
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -91,11 +102,13 @@ function searchByTag () {
 }
 
 function declareNewUser () {
-  currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
+  // currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
+  currentUser = allUsers[0]
 }
 
 function populateAll () {
   declareNewUser();
+  populatePantry();
   populateRecipes(newRepository.recipeIndex);
   populateTagList();
 }
@@ -204,4 +217,63 @@ function populateInstructions (baseRecipe) {
     allSteps += `<p>Step ${step.number}: ${step.instruction}</p>\n`
     return allSteps;
   },"");
+}
+
+function populatePantry () {
+  currentUser.pantry.userPantry.forEach(pantryItem => {
+    pantryTable.innerHTML += 
+    `<tr>
+      <td>${newRepository.ingredientIndex.find(ing => ing.id === pantryItem.ingredient).name}</td>
+      <td>${pantryItem.amount}</td>
+    </tr>`
+  });
+}
+
+function refreshPantry () {
+  pantryTable.innerHTML = 
+  `<tr>
+    <th>Ingredient</th>
+    <th>Quantity</th>
+  </tr>`
+}
+
+function viewPantry () {
+  removeHidden(pantryView)
+}
+
+function closePantry () {
+  addHidden(pantryView)
+}
+
+function attemptCook () {
+  currentUser.recipesToCook.forEach(recipe => {
+    if (currentUser.pantry.hasAllIng(recipe)) {
+      currentUser.pantry.removeIngFromPantry(recipe);
+      refreshPantry();
+      populatePantry();
+      alert(`Nice work! The ingredients used have been removed from your pantry so make sure to stock up next time.`)
+    } else {
+      populateShoppingList();
+      viewShopping();
+      alert(`Sorry, you don't have enough ingredients to cook ${recipe.name}. The missing ingredients have been added to this shopping list for your convenience`)
+    }
+  })
+}
+
+function populateShoppingList () {
+  currentUser.pantry.findMissingIng().forEach(missItem => {
+    shoppingView.innerHTML += 
+    `<tr>
+      <td>${newRepository.ingredientIndex.find(ing => ing.id === missItem.id).name}</td>
+      <td>${missItem.amount}</td>
+    </tr>`
+  });
+}
+
+function viewShopping () {
+  removeHidden(shoppingView)
+}
+
+function closeShopping () {
+  addHidden(shoppingView)
 }
