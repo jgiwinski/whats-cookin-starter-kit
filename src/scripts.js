@@ -235,4 +235,15 @@ function closePantry () {
   addHidden(pantryView)
 }
 
-// function 
+function attemptCook () {
+  currentUser.recipesToCook.forEach(recipe => {
+    if (currentUser.pantry.hasAllIng(recipe)) {
+      currentUser.pantry.removeIngFromPantry(recipe);
+      refreshPantry();
+      populatePantry();
+      alert(`Nice work! The ingredients used have been removed from your pantry so make sure to stock up next time.`)
+    } else {
+      alert(`Sorry, you don't have enough ingredients to cook ${recipe.name}. Proceed to see a report of ingredients still needed.`)
+    }
+  })
+}
