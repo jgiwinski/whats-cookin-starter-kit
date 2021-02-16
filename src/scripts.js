@@ -1,6 +1,11 @@
 
 const allRecipes = recipeData.map(recipe => {return new Recipe(recipe)})
 const newRepository = new RecipeRepository(allRecipes, ingredientsData);
+const allUsers = usersData.map(user => {
+  const convertUser = new User (user, newRepository);
+  convertUser.pantry = new Pantry (convertUser.pantry);
+  return convertUser;
+})
 const recipesBtn = document.querySelector('.recipe-btn');
 const favRecipeBtn = document.querySelector('.fav-recipe-btn');
 const pantryBtn = document.querySelector('.pantry-btn');
@@ -11,18 +16,23 @@ const body = document.querySelector('body');
 const nameSearchBar = document.querySelector('#search-name');
 const ingSearchBar = document.querySelector('#search-ing');
 // const recipeCard = document.querySelector('.recipe-card-display');
-const tagList = document.querySelector('.tag-list')
+const tagList = document.querySelector('.tag-list');
 const allCheckboxes = document.querySelectorAll('input[type="checkbox"]');
 const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
-// let instructions = document.querySelector('.instructions')
+
+let instructions = document.querySelector('.instructions');
+
+// GLOBAL VARS
+let currentUser = null;
+
 
 //EVENTLISTENERS
-window.addEventListener('load', populateAll)
+window.addEventListener('load', populateAll);
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 submitBtn.addEventListener('click', searchByTag);
-body.addEventListener('click', triggerDetailView)
+body.addEventListener('click', triggerDetailView);
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -80,7 +90,12 @@ function searchByTag () {
   populateRecipes(returnRecipe);
 }
 
+function declareNewUser () {
+  currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
+}
+
 function populateAll () {
+  declareNewUser();
   populateRecipes(newRepository.recipeIndex);
   populateTagList();
 }
@@ -137,6 +152,13 @@ function triggerDetailView () {
   if (card) {
   viewRecDetails(card)
   }
+}
+
+function triggerFavorites () {
+  const recipeId = event.target.id;
+  const recipe = newRepository.recipeIndex.find(recipe => recipe.id === Number.parseInt(recipeId))
+  
+
 }
 
 function viewRecDetails (card) {

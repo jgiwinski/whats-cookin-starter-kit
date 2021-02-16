@@ -1,10 +1,8 @@
-const Pantry = require('./Pantry');
-
 class User {
   constructor (person, repository) {
     this.name = person.name
     this.id = person.id
-    this.pantry = new Pantry(person.pantry)
+    this.pantry = person.pantry
     this.repository = repository || {}
     this.favoriteRecipes = []
     this.recipesToCook = []
