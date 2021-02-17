@@ -12,7 +12,7 @@ const pantryBtn = document.querySelector('.pantry-btn');
 const favRecipeDisplay = document.querySelector('.fav-recipes-display');
 const allRecipeDisplay = document.querySelector('.all-recipes');
 //MAIN DISPLAY
-const body = document.querySelector('body');
+const recipeCards = document.querySelector('.recipe-cards');
 const nameSearchBar = document.querySelector('#search-name');
 const ingSearchBar = document.querySelector('#search-ing');
 const tagList = document.querySelector('.tag-list');
@@ -20,6 +20,7 @@ let allCheckboxes = document.querySelectorAll('input[name="all-tags"]');
 const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
 let instructions = document.querySelector('.instructions');
+const icons = document.querySelectorAll('.favoriting')
 // PANTRY VIEW
 const pantryView = document.getElementById('pantryView');
 const pantryTable = document.getElementById('pantryTable');
@@ -36,11 +37,16 @@ let currentUser = null;
 window.addEventListener('load', populateAll);
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
-body.addEventListener('click', triggerDetailView);
+recipeCards.addEventListener('click', triggerDetailView);
+recipeDetails.addEventListener('click', function () {
+  addHidden (recipeDetails)
+})
 submitBtn.addEventListener('click', searchByTag);
 pantryBtn.addEventListener('click', viewPantry);
 closePantryBtn.addEventListener('click', closePantry);
 closeShoppingBtn.addEventListener('click', closeShopping);
+// icons.forEach(i => i.addEventListener('click', experimentFav));
+// if the icons/favoriting button does not exist we cannot apply an event listener, bubbling is difficult because we have already set behaviour for said user event (maybe try a different click event for event bubbling)
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -55,6 +61,11 @@ ingSearchBar.addEventListener('keydown', function (event) {
 });
 
 //FUNCTIONS
+function toggleFill (a) {
+  a.classList.remove('far')
+  a.classList.add('fas')
+}
+
 function removeHidden(element) {
   element.classList.remove('hidden');
 }
@@ -67,12 +78,24 @@ function clearDisplay() {
   allRecipeDisplay.innerHTML = '';
 }
 
+function experimentFav (event) {
+  toggleFill(event.target)
+  const toPush = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  if (!currentUser.favoriteRecipes.includes(toPush)) {
+    currentUser.addToFav(toPush)
+  }
+}
+
 function viewFavRecipes() {
+  currentUser.onFavorites = true;
+  favRecipeDisplay.innerHTML = ''
+  populateRecipes(favRecipeDisplay, currentUser.favoriteRecipes);
   addHidden(allRecipeDisplay);
   removeHidden(favRecipeDisplay);
 }
 
 function viewAllRecipes() {
+  currentUser.onFavorites = false;
   addHidden(favRecipeDisplay);
   removeHidden(allRecipeDisplay);
 }
@@ -81,14 +104,22 @@ function searchByName() {
   let searchInput = nameSearchBar.value;
   let returnRecipe = newRepository.filterByName(searchInput);
   clearDisplay()
-  populateRecipes(returnRecipe);
+  if (currentUser.onFavorites) {
+    populateRecipes(allRecipeDisplay, returnRecipe);
+  } else {
+    populateRecipes(favRecipeDisplay, returnRecipe);
+  }
 }
 
 function searchByIng() {
   let searchInput = ingSearchBar.value;
   let returnRecipe = newRepository.filterByIng(searchInput);
   clearDisplay();
-  populateRecipes(returnRecipe);
+  if (currentUser.onFavorites) {
+    populateRecipes(allRecipeDisplay, returnRecipe);
+  } else {
+    populateRecipes(favRecipeDisplay, returnRecipe);
+  }
 }
 
 function searchByTag () {
@@ -100,7 +131,11 @@ function searchByTag () {
   })
   const result = newRepository.filterByTag(checked);
   clearDisplay();
-  populateRecipes(result);
+  if (currentUser.onFavorites) {
+    populateRecipes(allRecipeDisplay, returnRecipe);
+  } else {
+    populateRecipes(favRecipeDisplay, returnRecipe);
+  }
 }
 
 function declareNewUser () {
@@ -111,14 +146,14 @@ function declareNewUser () {
 function populateAll () {
   declareNewUser();
   populatePantry();
-  populateRecipes(newRepository.recipeIndex);
+  populateRecipes(allRecipeDisplay, currentUser.repository.recipeIndex);
 }
 
-function populateRecipes(recipe) {
-  recipe.forEach(recipe => {
-    allRecipeDisplay.innerHTML +=
+function populateRecipes(where, what) {
+  what.forEach(recipe => {
+    where.innerHTML +=
     `<section class="recipe-card-display center-column" id="${recipe.id}">
-      <i class="far fa-bookmark fa-4x"></i>
+      <i class="far fa-bookmark fa-4x favoriting"></i>
       <img src="${recipe.image}"/>
       <button class="green-btn" id="cook-btn">Cook Queue</button>
       <h4>${recipe.name}</h4>
@@ -128,6 +163,8 @@ function populateRecipes(recipe) {
     </section>`;
   })
 }
+
+// Saving original version just in case, the above version will edit the 
 
 function populateRecipeTags (taggedItem) {
   return taggedItem.tags.reduce((tagList, tag) => {
@@ -189,7 +226,6 @@ function populateIngredients (baseRecipe) {
   const ing = baseRecipe.ingNames(newRepository.ingredientIndex)
   let result = '';
   let index = 0;
-  console.log(index)
   while(index < ing.length){
     result += `<p>- ${ing[index]}: ${baseRecipe.ingredients[index].quantity.amount} ${baseRecipe.ingredients[index].quantity.unit}</p>\n`
     index++

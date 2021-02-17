@@ -4,6 +4,7 @@ class User {
     this.id = person.id
     this.pantry = person.pantry
     this.repository = repository || {}
+    this.onFavorites = false
     this.favoriteRecipes = []
     this.recipesToCook = []
   }
