@@ -12,7 +12,7 @@ const pantryBtn = document.querySelector('.pantry-btn');
 const favRecipeDisplay = document.querySelector('.fav-recipes-display');
 const allRecipeDisplay = document.querySelector('.all-recipes');
 //MAIN DISPLAY
-const body = document.querySelector('body');
+const recipeCards = document.querySelector('.recipe-cards');
 const nameSearchBar = document.querySelector('#search-name');
 const ingSearchBar = document.querySelector('#search-ing');
 const tagList = document.querySelector('.tag-list');
@@ -36,7 +36,14 @@ let currentUser = null;
 window.addEventListener('load', populateAll);
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
-body.addEventListener('click', triggerDetailView);
+allRecipeDisplay.addEventListener('dblclick', triggerDetailView);
+allRecipeDisplay.addEventListener('click', addFav);
+favRecipeDisplay.addEventListener('dblclick', toCook)
+favRecipeDisplay.addEventListener('click', removeFav);
+
+recipeDetails.addEventListener('click', function () {
+  addHidden (recipeDetails)
+})
 submitBtn.addEventListener('click', searchByTag);
 pantryBtn.addEventListener('click', viewPantry);
 closePantryBtn.addEventListener('click', closePantry);
@@ -55,6 +62,11 @@ ingSearchBar.addEventListener('keydown', function (event) {
 });
 
 //FUNCTIONS
+function toggleFill (a) {
+  a.classList.remove('far')
+  a.classList.add('fas')
+}
+
 function removeHidden(element) {
   element.classList.remove('hidden');
 }
@@ -63,16 +75,37 @@ function addHidden(element) {
   element.classList.add('hidden');
 }
 
-function clearDisplay() {
-  allRecipeDisplay.innerHTML = '';
+function clearDisplay(where) {
+  where.innerHTML = '';
+}
+
+function addFav () {
+  const toPush = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  currentUser.addToFav(toPush)
+}
+
+function removeFav () {
+  const toSplice = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  currentUser.removeFromFav(toSplice)
+  clearDisplay(favRecipeDisplay)
+  populateRecipes(favRecipeDisplay, currentUser.favoriteRecipes);
+}
+
+function toCook () {
+  const rec = currentUser.favoriteRecipes.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  currentUser.addToCook(rec)
 }
 
 function viewFavRecipes() {
+  currentUser.onFavorites = true;
+  clearDisplay(favRecipeDisplay)
+  populateRecipes(favRecipeDisplay, currentUser.favoriteRecipes);
   addHidden(allRecipeDisplay);
   removeHidden(favRecipeDisplay);
 }
 
 function viewAllRecipes() {
+  currentUser.onFavorites = false;
   addHidden(favRecipeDisplay);
   removeHidden(allRecipeDisplay);
 }
@@ -80,15 +113,26 @@ function viewAllRecipes() {
 function searchByName() {
   let searchInput = nameSearchBar.value;
   let returnRecipe = newRepository.filterByName(searchInput);
-  clearDisplay()
-  populateRecipes(returnRecipe);
+  if (currentUser.onFavorites) {
+    clearDisplay(favRecipeDisplay);
+    populateRecipes(favRecipeDisplay, currentUser.favoritesByName(nameSearchBar.value));
+  } else {
+    clearDisplay(allRecipeDisplay);
+    populateRecipes(allRecipeDisplay, returnRecipe);
+  }
 }
 
 function searchByIng() {
   let searchInput = ingSearchBar.value;
   let returnRecipe = newRepository.filterByIng(searchInput);
-  clearDisplay();
-  populateRecipes(returnRecipe);
+  // clearDisplay(allRecipeDisplay);
+  if (currentUser.onFavorites) {
+    clearDisplay(favRecipeDisplay);
+    populateRecipes(favRecipeDisplay, currentUser.favoritesByIngredients(ingSearchBar.value));
+  } else {
+    clearDisplay(allRecipeDisplay);
+    populateRecipes(allRecipeDisplay, returnRecipe);
+}
 }
 
 function searchByTag () {
@@ -98,9 +142,15 @@ function searchByTag () {
       checked.push(box.value)
     }
   })
-  const result = newRepository.filterByTag(checked);
-  clearDisplay();
-  populateRecipes(result);
+  if (currentUser.onFavorites) {
+    // const result = ;
+    clearDisplay(favRecipeDisplay);
+    populateRecipes(favRecipeDisplay, currentUser.favoritesByTag(checked));
+  } else {
+    const result = newRepository.filterByTag(checked);
+    clearDisplay(allRecipeDisplay);
+    populateRecipes(allRecipeDisplay, result);
+  }
 }
 
 function declareNewUser () {
@@ -111,16 +161,14 @@ function declareNewUser () {
 function populateAll () {
   declareNewUser();
   populatePantry();
-  populateRecipes(newRepository.recipeIndex);
+  populateRecipes(allRecipeDisplay, currentUser.repository.recipeIndex);
 }
 
-function populateRecipes(recipe) {
-  recipe.forEach(recipe => {
-    allRecipeDisplay.innerHTML +=
+function populateRecipes(where, what) {
+  what.forEach(recipe => {
+    where.innerHTML +=
     `<section class="recipe-card-display center-column" id="${recipe.id}">
-      <i class="far fa-bookmark fa-4x"></i>
       <img src="${recipe.image}"/>
-      <button class="green-btn" id="cook-btn">Cook Queue</button>
       <h4>${recipe.name}</h4>
       <div class="tag-box">
         ${populateRecipeTags(recipe)}
@@ -128,6 +176,8 @@ function populateRecipes(recipe) {
     </section>`;
   })
 }
+
+// Saving original version just in case, the above version will edit the 
 
 function populateRecipeTags (taggedItem) {
   return taggedItem.tags.reduce((tagList, tag) => {
@@ -150,13 +200,6 @@ function triggerDetailView () {
   if (card) {
   viewRecDetails(card)
   }
-}
-
-function triggerFavorites () {
-  const recipeId = event.target.id;
-  const recipe = newRepository.recipeIndex.find(recipe => recipe.id === Number.parseInt(recipeId))
-
-
 }
 
 function viewRecDetails (card) {
@@ -189,7 +232,6 @@ function populateIngredients (baseRecipe) {
   const ing = baseRecipe.ingNames(newRepository.ingredientIndex)
   let result = '';
   let index = 0;
-  console.log(index)
   while(index < ing.length){
     result += `<p>- ${ing[index]}: ${baseRecipe.ingredients[index].quantity.amount} ${baseRecipe.ingredients[index].quantity.unit}</p>\n`
     index++
