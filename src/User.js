@@ -10,25 +10,28 @@ class User {
   }
 
   addToFav (newFav) {
-    this.favoriteRecipes.push(newFav)
+    if (!this.favoriteRecipes.includes(newFav)) {
+      this.favoriteRecipes.push(newFav)
+    }
   }
 
   removeFromFav (oldFav) {
-    this.favoriteRecipes.splice(
-      this.favoriteRecipes.indexOf(oldFav), 1)
+    if (this.favoriteRecipes.includes(oldFav)) {
+      this.favoriteRecipes.splice(
+        this.favoriteRecipes.indexOf(oldFav), 1)
+    }
   }
 
   addToCook (wanted) {
     this.recipesToCook.push(wanted)
   }
 
-  favoritesByTag () {
-    const tagsInput = Object.values(arguments)
+  favoritesByTag (tagsInput) {
     let tagStack = tagsInput.reduce((ret, tag) => {
       if (tagsInput.indexOf(tag) === tagsInput.length - 1) {
         ret += `'${tag}'`
       } else {
-        ret += `'${tag}' && `
+        ret += `'${tag}' || `
       }
       return ret
     }, '')

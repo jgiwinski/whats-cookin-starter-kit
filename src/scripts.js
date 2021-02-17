@@ -20,7 +20,6 @@ let allCheckboxes = document.querySelectorAll('input[name="all-tags"]');
 const submitBtn = document.querySelector('.submit');
 const recipeDetails = document.querySelector('.recipe-details');
 let instructions = document.querySelector('.instructions');
-const icons = document.querySelectorAll('.favoriting')
 // PANTRY VIEW
 const pantryView = document.getElementById('pantryView');
 const pantryTable = document.getElementById('pantryTable');
@@ -37,7 +36,11 @@ let currentUser = null;
 window.addEventListener('load', populateAll);
 favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
-recipeCards.addEventListener('click', triggerDetailView);
+allRecipeDisplay.addEventListener('dblclick', triggerDetailView);
+allRecipeDisplay.addEventListener('click', addFav);
+favRecipeDisplay.addEventListener('dblclick', toCook)
+favRecipeDisplay.addEventListener('click', removeFav);
+
 recipeDetails.addEventListener('click', function () {
   addHidden (recipeDetails)
 })
@@ -45,8 +48,6 @@ submitBtn.addEventListener('click', searchByTag);
 pantryBtn.addEventListener('click', viewPantry);
 closePantryBtn.addEventListener('click', closePantry);
 closeShoppingBtn.addEventListener('click', closeShopping);
-// icons.forEach(i => i.addEventListener('click', experimentFav));
-// if the icons/favoriting button does not exist we cannot apply an event listener, bubbling is difficult because we have already set behaviour for said user event (maybe try a different click event for event bubbling)
 
 nameSearchBar.addEventListener('keydown', function (event) {
    if (event.keyCode === 13) {
@@ -74,21 +75,30 @@ function addHidden(element) {
   element.classList.add('hidden');
 }
 
-function clearDisplay() {
-  allRecipeDisplay.innerHTML = '';
+function clearDisplay(where) {
+  where.innerHTML = '';
 }
 
-function experimentFav (event) {
-  toggleFill(event.target)
+function addFav () {
   const toPush = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
-  if (!currentUser.favoriteRecipes.includes(toPush)) {
-    currentUser.addToFav(toPush)
-  }
+  currentUser.addToFav(toPush)
+}
+
+function removeFav () {
+  const toSplice = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  currentUser.removeFromFav(toSplice)
+  clearDisplay(favRecipeDisplay)
+  populateRecipes(favRecipeDisplay, currentUser.favoriteRecipes);
+}
+
+function toCook () {
+  const rec = currentUser.favoriteRecipes.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  currentUser.addToCook(rec)
 }
 
 function viewFavRecipes() {
   currentUser.onFavorites = true;
-  favRecipeDisplay.innerHTML = ''
+  clearDisplay(favRecipeDisplay)
   populateRecipes(favRecipeDisplay, currentUser.favoriteRecipes);
   addHidden(allRecipeDisplay);
   removeHidden(favRecipeDisplay);
@@ -103,23 +113,26 @@ function viewAllRecipes() {
 function searchByName() {
   let searchInput = nameSearchBar.value;
   let returnRecipe = newRepository.filterByName(searchInput);
-  clearDisplay()
   if (currentUser.onFavorites) {
-    populateRecipes(allRecipeDisplay, returnRecipe);
+    clearDisplay(favRecipeDisplay);
+    populateRecipes(favRecipeDisplay, currentUser.favoritesByName(nameSearchBar.value));
   } else {
-    populateRecipes(favRecipeDisplay, returnRecipe);
+    clearDisplay(allRecipeDisplay);
+    populateRecipes(allRecipeDisplay, returnRecipe);
   }
 }
 
 function searchByIng() {
   let searchInput = ingSearchBar.value;
   let returnRecipe = newRepository.filterByIng(searchInput);
-  clearDisplay();
+  // clearDisplay(allRecipeDisplay);
   if (currentUser.onFavorites) {
-    populateRecipes(allRecipeDisplay, returnRecipe);
+    clearDisplay(favRecipeDisplay);
+    populateRecipes(favRecipeDisplay, currentUser.favoritesByIngredients(ingSearchBar.value));
   } else {
-    populateRecipes(favRecipeDisplay, returnRecipe);
-  }
+    clearDisplay(allRecipeDisplay);
+    populateRecipes(allRecipeDisplay, returnRecipe);
+}
 }
 
 function searchByTag () {
@@ -129,12 +142,14 @@ function searchByTag () {
       checked.push(box.value)
     }
   })
-  const result = newRepository.filterByTag(checked);
-  clearDisplay();
   if (currentUser.onFavorites) {
-    populateRecipes(allRecipeDisplay, returnRecipe);
+    // const result = ;
+    clearDisplay(favRecipeDisplay);
+    populateRecipes(favRecipeDisplay, currentUser.favoritesByTag(checked));
   } else {
-    populateRecipes(favRecipeDisplay, returnRecipe);
+    const result = newRepository.filterByTag(checked);
+    clearDisplay(allRecipeDisplay);
+    populateRecipes(allRecipeDisplay, result);
   }
 }
 
@@ -153,9 +168,7 @@ function populateRecipes(where, what) {
   what.forEach(recipe => {
     where.innerHTML +=
     `<section class="recipe-card-display center-column" id="${recipe.id}">
-      <i class="far fa-bookmark fa-4x favoriting"></i>
       <img src="${recipe.image}"/>
-      <button class="green-btn" id="cook-btn">Cook Queue</button>
       <h4>${recipe.name}</h4>
       <div class="tag-box">
         ${populateRecipeTags(recipe)}
@@ -187,13 +200,6 @@ function triggerDetailView () {
   if (card) {
   viewRecDetails(card)
   }
-}
-
-function triggerFavorites () {
-  const recipeId = event.target.id;
-  const recipe = newRepository.recipeIndex.find(recipe => recipe.id === Number.parseInt(recipeId))
-
-
 }
 
 function viewRecDetails (card) {
