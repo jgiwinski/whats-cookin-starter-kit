@@ -3,26 +3,26 @@ const expect = chai.expect
 const Recipe = require('../src/Recipe')
 const Ingredient = require('../src/Ingredient')
 
-const ice = new Ingredient ({
+const ice = {
   "id": 00002,
   "name": "ice",
   "estimatedCostInCents": 35
-})
-const water = new Ingredient ({
+}
+const water = {
   "id": 0003,
   "name": "water",
   "estimatedCostInCents": 15
-})
-const milk = new Ingredient ({
+}
+const milk = {
   "id": 0365,
   "name": "milk",
   "estimatedCostInCents": 212
-})
-const boxCer = new Ingredient ({
+}
+const boxCer = {
   "id": 1567,
   "name": "box cereal",
   "estimatedCostInCents": 138
-})
+}
 
 const ingIndex = [ice, water, milk, boxCer]
 

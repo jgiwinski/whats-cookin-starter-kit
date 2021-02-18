@@ -35,12 +35,12 @@ describe('RecipeRepository', () => {
 
   it('should be able to filter recipes by tag', () => {
     const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
-    expect(newRepo.filterByTag('drinks')).to.deep.equal([recIceWater, recJuice])
+    expect(newRepo.filterByTag(['drinks'])).to.deep.equal([recIceWater, recJuice])
   })
 
   it('should be able to filter recipes by any tag', () => {
     const newRepo = new RecipeRepository ([recIceWater, recCereal, recJuice], ingIndex)
-    expect(newRepo.filterByTag('breakfast')).to.deep.equal([recCereal])
+    expect(newRepo.filterByTag(['breakfast'])).to.deep.equal([recCereal, recJuice])
   })
 
   it('should be able to filter recipes by name', () => {

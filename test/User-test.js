@@ -42,10 +42,10 @@ describe('User', () => {
 
   it('should have a pantry', () => {
     const newU = new User (daphne)
-    expect(daphne.pantry).to.deep.equal([
+    expect(newU.pantry).to.deep.equal([
       {
         "ingredient": 15,
-        "amount": 4
+        "amount": 12
       },
       {
         "ingredient": 365,
@@ -153,7 +153,7 @@ describe('User', () => {
     newU.addToFav(recIceWater)
     newU.addToFav(recCereal)
     newU.addToFav(recJuice)
-    expect(newU.favoritesByTag('drinks')).to.deep.equal([recIceWater, recJuice])
+    expect(newU.favoritesByTag(['drinks'])).to.deep.equal([recIceWater, recJuice])
   })
 
   it('should be able to store a recipe repository', () => {
@@ -171,8 +171,8 @@ describe('User', () => {
     newU.addToFav(recIceWater)
     newU.addToFav(recCereal)
     newU.addToFav(recJuice)
-    expect(newU.favoritesByTag('drinks', 'fruity')).to.deep.equal([recJuice])
-    expect(newU.favoritesByTag('breakfast', '5 minute')).to.deep.equal([recCereal, recJuice])
+    expect(newU.favoritesByTag(['drinks', 'fruity'])).to.deep.equal([recIceWater,recJuice])
+    expect(newU.favoritesByTag(['breakfast', '5 minute'])).to.deep.equal([recCereal, recJuice])
   })
 
   it('should be able to filter favorites by name', () => {
