@@ -38,8 +38,8 @@ favRecipeBtn.addEventListener('click', viewFavRecipes);
 recipesBtn.addEventListener('click', viewAllRecipes);
 allRecipeDisplay.addEventListener('dblclick', triggerDetailView);
 allRecipeDisplay.addEventListener('click', addFav);
-favRecipeDisplay.addEventListener('dblclick', toCook)
-favRecipeDisplay.addEventListener('click', removeFav);
+favRecipeDisplay.addEventListener('click', toCook)
+favRecipeDisplay.addEventListener('dblclick', removeFav);
 
 recipeDetails.addEventListener('click', function () {
   addHidden (recipeDetails)

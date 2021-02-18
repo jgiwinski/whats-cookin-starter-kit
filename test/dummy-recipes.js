@@ -1,4 +1,5 @@
 const User = require('../src/User')
+// const Pantry = require('../src/Pantry')
 const RecipeRepository = require('../src/RecipeRepository')
 const Recipe = require('../src/Recipe')
 const Ingredient = require('../src/Ingredient')
@@ -148,7 +149,7 @@ const daphne = {
   "pantry": [
     {
       "ingredient": 15,
-      "amount": 4
+      "amount": 12
     },
     {
       "ingredient": 365,
@@ -181,6 +182,7 @@ const simon = {
 }
 
 const simonUser = new User(simon);
+// simonUser.pantry = new Pantry (simonUser.pantry)
 const daphneUser = new User(daphne);
 const daphneClone = new User (daphne);
 
