@@ -158,8 +158,7 @@ function searchByTag () {
 }
 
 function declareNewUser () {
-  // currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
-  currentUser = allUsers[0]
+  currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
 }
 
 function populateAll () {
