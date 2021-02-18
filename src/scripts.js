@@ -1,4 +1,3 @@
-
 const allRecipes = recipeData.map(recipe => {return new Recipe(recipe)})
 const newRepository = new RecipeRepository(allRecipes, ingredientsData);
 const allUsers = usersData.map(user => {
@@ -28,6 +27,8 @@ const closePantryBtn = document.getElementById('closePantry')
 const shoppingView = document.getElementById('shoppingView')
 const shoppingTable = document.getElementById('shoppingList')
 const closeShoppingBtn = document.getElementById('closeShopping')
+const wrapper = document.querySelector('.message')
+const message = document.getElementById('message')
 
 // GLOBAL VARS
 let currentUser = null;
@@ -81,18 +82,21 @@ function clearDisplay(where) {
 
 function addFav () {
   const toPush = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  favMessage(toPush);
   currentUser.addToFav(toPush)
 }
 
 function removeFav () {
   const toSplice = currentUser.repository.recipeIndex.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
   currentUser.removeFromFav(toSplice)
+  remMessage(toSplice);
   clearDisplay(favRecipeDisplay)
   populateRecipes(favRecipeDisplay, currentUser.favoriteRecipes);
 }
 
 function toCook () {
   const rec = currentUser.favoriteRecipes.find(rec => rec.id === Number.parseInt(event.target.parentNode.id))
+  cookMessage(rec)
   currentUser.addToCook(rec)
 }
 
@@ -154,8 +158,7 @@ function searchByTag () {
 }
 
 function declareNewUser () {
-  // currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
-  currentUser = allUsers[0]
+  currentUser = allUsers[Math.floor(Math.random() * usersData.length)];
 }
 
 function populateAll () {
@@ -298,10 +301,29 @@ function populateShoppingList () {
   });
 }
 
-function viewShopping () {
-  removeHidden(shoppingView)
+function favMessage (r) {
+  message.innerHTML = `${r.name} has been added to your favorites`
+  wrapper.animate([
+    { opacity: 0 },
+    { opacity: 1 },
+    { opacity: 0, easing: 'ease-out' }
+  ], 2000)
 }
 
-function closeShopping () {
-  addHidden(shoppingView)
+function remMessage (r) {
+  message.innerHTML = `${r.name} has been removed from your favorites`
+  wrapper.animate([
+    { opacity: 0 },
+    { opacity: 1 },
+    { opacity: 0, easing: 'ease-out' }
+  ], 2000)
+}
+
+function cookMessage (r) {
+  message.innerHTML = `${r.name} has been added to your 'To Cook' queue`
+  wrapper.animate([
+    { opacity: 0 },
+    { opacity: 1 },
+    { opacity: 0, easing: 'ease-out' }
+  ], 2000)
 }
