@@ -1,51 +1,43 @@
-# What's Cookin'? Starter Kit 
+# What's Cookin'
 
-The details of this project are outlined in the <a href="https://frontend.turing.io/projects/whats-cookin.html" target="\__blank">project spec</a>.
+GitHub Page: [What's Cookin'](https://jgiwinski.github.io/whats-cookin-starter-kit/)
 
-## Set Up 
+What's Cookin' is a program that allows a user to view a list of recipes. On page load the user is able to view an image of the recipe and the associated tags. At the top of the page, in the navigation bar, the user can select buttons and toggle between three different views: All Recipes, Favorite Recipes, and their Pantry. 
 
-1. Within your group, decide on one person to have the project repository on their Github account. This person will *fork* this repository - on the top right corner of the page, click the fork button. 
-2. Both group members should then clone down the forked repository (make sure that everyone is added as a collaborator as well). Since you don't want your project to be named "whats-cookin-starter-kit", add an optional argument after the repo url when cloning. The command should look like this: `git clone [remote-address] [what you want to name the repo]`.
-3. Once you have cloned the repo, change into the directory and install the project dependencies. Run npm install to install project dependencies.
-4. Run open src/index.html in the terminal to see the HTML page (you should see some boilerplate HTML displayed on the page)
-5. Make sure both members of your team are collaborators on the forked repo.
+<img src="https://gyazo.com/fb5dde60c9c1bda34f8b06788acd424c.gif"> 
 
-## Testing 
+On the left side of the page there is a list of tags the user can select and use to filter the recipes displayed on the page. Select the desired tags and then hit the submit button to regenerate the recipe view. 
 
-There is no boilerplate for testing in this starter-kit repo. You will need to set this up yourself. However, if you ran npm install, then the tooling you need to start testing is already installed (mocha and chai).
-
-## Linting Your Code 
-
-Run the command in your terminal npm run lint to run the linter on your JavaScript code. There will be errors and warnings right from the start in this starter kit, but that's ok - the linter is still running successfully.
-
-Your linter will look only at the JavaScript files you have within the src and the test directories.
+There are two search bars towards the top of the page. The user can decide if they would like to search by the name of the recipe or by the ingredients used to make the recipe. 
 
 
-## Data Model
-### Users
-```js
-{
-  "id": [number],
-  "name": [string],
-  "pantry": [array of objects with amount and ingredient id properties]
-},
+If a user is interested in a recipe they can select it by double clicking on the recipe card. A new recipe card will popup with all the details for the selected recipe: title, instructions, ingredients, and the cost to make the entire recipe. 
+
+<img src="https://gyazo.com/ec1ee00b2c40141422a4e7e8873c3d66.gif">  
+
+Once the user finds a recipe they are interested in cooking they have the option to add it to their favorite recipes list, by clicking the image once. The user can then move over to the favorites recipe view and see all of the recipes they have saved. By clicking on a recipe card once in the favorites the user can remove the recipe from their favorites. 
+
+Within the favorite recipes view the user can search by name or ingredient with the search bar. They also have the option to filter by tag. 
+
+In the pantry view the user can view which ingredients they have and what quantity of each. 
+
+<img src="https://gyazo.com/99364e5e9fcd54f1aa5a640b57c175d1.gif">
+
+## Technologies Used 
+- JavaScript
+- HTML
+- CSS
+
+
+## Installation
+
+1. Clone down the repo and install dependancies. 
+```bash
+git clone git@github.com:jgiwinski/whats-cookin-starter-kit.git
+cd whats-cookin-starter-kit/
+npm install
 ```
 
-### Recipes
-```js
-{
-  "ingredients" [array of objects with ingredients ids(connection to ingredients), ingredient names, and quantity data],
-  "instructions": [array of objects with instructions properties and numbered steps],
-  "name": [string],
-  "tags": [array of strings representing info about the recipes]
-}
-```
-
-### Ingredients
-```js
-{
-  "estimatedCostInCents": [number],
-  "id": [number -- connection to users and recipes],
-  "name": [string]
-}
-```
+## Contributing
+* Marika Shanahan -> GitHub: https://github.com/monshan
+* Julia Iwinski -> GitHub: https://github.com/jgiwinski
