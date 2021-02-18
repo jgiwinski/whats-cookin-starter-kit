@@ -23,7 +23,9 @@ class User {
   }
 
   addToCook (wanted) {
-    this.recipesToCook.push(wanted)
+    if (!this.recipesToCook.includes(wanted)) {
+      this.recipesToCook.push(wanted)
+    }
   }
 
   favoritesByTag (tagsInput) {

@@ -9,9 +9,11 @@ const {
   daphneUser,
   simonUser
 } = require('../test/dummy-recipes');
+simonUser.pantry = new Pantry (simonUser.pantry)
+daphneUser.pantry = new Pantry (daphneUser.pantry)
+daphneClone.pantry = new Pantry (daphneClone.pantry)
 
 describe('Pantry', () => {
-
   it('should be a function', () => {
     expect(Pantry).to.be.a('function');
   });
@@ -28,7 +30,7 @@ describe('Pantry', () => {
       },
       {
         "ingredient": 15,
-        "amount": 7
+        "amount": 24
       },
       {
         "ingredient": 365,
@@ -53,9 +55,8 @@ describe('Pantry', () => {
   });
 
   describe('findMissingIng', () => {
-
     it('should accurately return the missing ingredients from the recipe', () => {
-      expect(simonUser.pantry.findMissingIng(recCereal)).to.deep.equal([{id: 15, amount: 5}])
+      expect(daphneUser.pantry.findMissingIng(recJuice)).to.deep.equal([{"id": 9412, "amount": 1}, {"id": 88512, "amount": 3}])
     });
 
     it('should list additional ingredients in shopping list that the user needs to make recipe', () => {
